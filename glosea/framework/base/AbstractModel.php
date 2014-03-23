@@ -16,6 +16,8 @@ abstract class AbstractModel {
 	
 	private $_where;
 	
+	private $_adapter;
+	
 	private $_data;
 	
 	public $id = 'id';

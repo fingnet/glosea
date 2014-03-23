@@ -10,4 +10,8 @@ return array(
 	'data_path' => '../../data/',
 	//日志存储目录
 	'logo_path' => 'log',
+	//默认适配器类型
+	'adapter'   => 'pdo',
+	//默认数据库类型
+	'driver'    => 'mysql'
 );

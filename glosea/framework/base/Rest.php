@@ -1,7 +1,5 @@
 <?php
-class Rest extends AbstractController {
-	
-	protected $model;
+class Rest extends Service {
 	
 	function __construct($model = null){
 		
