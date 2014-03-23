@@ -1,4 +1,5 @@
 <?php
+namespace glosea\framework\base;
 /**
  * 模型抽象类定义
  * 
@@ -12,12 +13,6 @@ abstract class AbstractModel {
 	
 	protected $attrs;
 	
-	private $_select;
-	
-	private $_where;
-	
-	private $_adapter;
-	
 	private $_data;
 	
 	public $id = 'id';
@@ -30,31 +25,7 @@ abstract class AbstractModel {
 		return $this;
 	}
 	
-	public function getVar(){
-		
-	}
-	
-	public function getRow(){
-		
-	}
-	
-	public function getList(){
-		
-	}
-	
 	public function select(){
-		return $this;
-	}
-	
-	public function where(){
-		return $this;
-	}
-	
-	public function whereOr(){
-		return $this;
-	}
-	
-	public function sort(){
 		return $this;
 	}
 	
@@ -62,15 +33,9 @@ abstract class AbstractModel {
 		
 	}
 	
-	public function update(){
-		
-	}
+	abstract public function update(){}
 	
-	public function remove(){
-		
-	}
+	abstract public function remove(){}
 	
-	public function save(){
-		
-	}
+	abstract public function save(){}
 }

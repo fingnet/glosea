@@ -1,7 +1,9 @@
 <?php
 class Glosea{
+	
 	static $db;
 	static $container;
+	
 	public static function init(){
 		
 	}

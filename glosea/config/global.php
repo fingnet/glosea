@@ -6,4 +6,6 @@ defined('GS_ROOT', str_replace('\\', '/', substr(dirname(__FILE__), 0, -14)).'/'
 //应用程序域路径
 defined('GS_DOMAIN_PATH', '/');
 defined('GS_TIME', time());
-defined('GS_DEBUG',true);
+defined('GS_DEBUG', true);
+defined('GS_CLIENT_IP', '');
+

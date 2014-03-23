@@ -1,6 +1,6 @@
 <?php
-use AbstractAdapter;
-
+namespace glosea\framework\db\pdo;
+use glosea\framework\db\AbstractAdapter;
 /**
  * PDO数据库适配器
  * @author MaZhirong <fingnet@gmail.com> 2014-3-14
