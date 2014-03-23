@@ -1,7 +1,9 @@
 <?php
 return array(
-	'dns'      => 'mysql://localhost:3306',
+	'type'     => 'mysql',
+	'host'     => 'localhost',
 	'dbname'   => 'glosea',
 	'user'     => 'root',
-	'password' => ''
+	'password' => '',
+	'dsn'      => 'mysql:host=localhost;dbname=glosea'
 );
