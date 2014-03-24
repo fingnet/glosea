@@ -9,4 +9,18 @@ namespace glosea\framework\db;
  */
 abstract class AbstractAdapter{
 	
+	private $_model;
+	
+	abstract function insert(){}
+	
+	abstract function update(){}
+	
+	abstract function delete(){}
+	
+	abstract function replace(){}
+	
+	abstract function select(){}
+	
+	abstract function query(){}
+	
 }
