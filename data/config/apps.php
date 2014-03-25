@@ -20,6 +20,11 @@ return array(
 			'app_id'   => 'xiyouqi.order',
 			'app_name' => '订餐平台',
 			'alias'    => 'order'
+		),
+		'train' => array(
+			'app_id'   => 'perpetual.order',
+			'app_name' => '培训门户',
+			'alias'    => 'train'
 		)
 	),
 	'default' => 'glosea.site'
