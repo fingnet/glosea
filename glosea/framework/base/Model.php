@@ -1,11 +1,10 @@
 <?php
 class Model extends AbstractModel{
 	
-	//持久化适配器
-	private $_adapter;
-	
 	function __construct($attrs = null, $entity = null, $adapter = null){
-		
+		if(!is_null($adapter)){
+			$this -> setAdapter($adapter);
+		}
 	}
 	
 	//获取或设置属性

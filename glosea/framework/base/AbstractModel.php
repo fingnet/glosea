@@ -7,60 +7,65 @@ namespace glosea\framework\base;
  * @copyright ©2014 glosea.com
  * @license http://www.glosea.org
  * @version $Id$
- * @package base
  */
 abstract class AbstractModel {
 	//属性列表
 	protected $attrs;
 	
 	//模型数据对象
-	private $_data = null;
+	protected $data = null;
 	
 	//移除的数据
-	private $_remove = null;
+	protected $remove = array();
 	
 	//关联模型
-	private $_join = null;
+	protected $join = array();
 	
 	//子模型
-	private $_child = null;
+	protected $child = array();
 	
 	//父模型
-	private $_parent = null;
+	protected $parent = null;
 	
 	//属性映射
-	private $_map = null;
+	protected $map = array();
 	
 	//IO适配器
-	private $_adapter;
+	protected $adapter;
 	
 	//主键名称
-	public $pkName = 'id';
+	public $pk = 'id';
 	
 	//外键名称
-	public $fkName;
+	public $fk;
 	
 	//父级ID
 	public $pid;
 	
-	function __construct (){
+	function __construct ($adapter = null){
 		
 	}
 	
+	public function setAdapter($adapter){
+		$this -> adapter = $adapter;
+		return $this;
+	}
+	
 	public function __set($name,$value){
+		$this -> data[$name] = $value;
 		return $this;
 	}
 	
 	public function __get($name){
-		return isset($this -> _data[$name]) ? $this -> _data[$name] : null;
+		return isset($this -> data[$name]) ? $this -> data[$name] : null;
 	}
 	
 	public function __isset($name){
-		return isset($this -> _data[$name]);
+		return isset($this -> data[$name]);
 	}
 	
 	public function __unset($name){
-		unset($this -> _data[$name]);
+		unset($this -> data[$name]);
 		return $this;
 	}
 	
@@ -68,10 +73,18 @@ abstract class AbstractModel {
 		return $this;
 	}
 	
+	public function data(){
+		return $this -> data;
+	}
+	
+	public function toJson(){
+		return json_encode($this -> data);
+	}
+	
 	//创建数据对象
 	public function create($data = null){
-		$this -> _data = !is_null($data) ? $data : $this ->_data;
-		if(is_null($this -> _data)){
+		$this -> data = !is_null($data) ? $data : $this -> data;
+		if(is_null($this -> data)){
 			
 		}
 		return $this;
@@ -82,7 +95,7 @@ abstract class AbstractModel {
 		if(!is_null($data)){
 			$this -> create($data);
 		}
-		return $this -> _adapter -> insert($this -> _data);
+		return $this -> adapter -> insert($this -> data);
 	}
 	
 	//删除数据
@@ -95,7 +108,7 @@ abstract class AbstractModel {
 		if(!is_null($data)){
 			$this -> create($data);
 		}
-		return $this -> _adapter -> update($this -> _data, $this -> pkName);
+		return $this -> adapter -> update($this -> data, $this -> pk);
 	}
 	
 	//存储 同时包含批量的新增|更新|删除

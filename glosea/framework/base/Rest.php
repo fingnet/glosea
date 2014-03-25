@@ -1,7 +1,14 @@
 <?php
+namespace glosea\framework\base;
+use Service;
 class Rest extends Service {
 	
 	function __construct($model = null){
+		
+	}
+	
+	//获取
+	public function getMethod(){
 		
 	}
 	
