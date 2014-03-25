@@ -24,6 +24,4 @@ class AbstractPdoAdapter extends AbstractAdapter {
 	
 	//回滚
 	
-	//行级锁
-	
 }

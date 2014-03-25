@@ -12,5 +12,4 @@ use glosea\framework\db\pdo\AbstractPdoAdapter;
 class PdoAdapter extends AbstractPdoAdapter {
 	//数据库驱动
 	private $_dirver = 'mysql';
-	
 } 
