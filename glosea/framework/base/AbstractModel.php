@@ -15,6 +15,9 @@ abstract class AbstractModel {
 	//模型数据对象
 	protected $data = null;
 	
+	//数据是否存在
+	protected $exists = false;
+	
 	//移除的数据
 	protected $remove = array();
 	
@@ -25,7 +28,7 @@ abstract class AbstractModel {
 	protected $child = array();
 	
 	//父模型
-	protected $parent = null;
+	protected $parent = array();
 	
 	//属性映射
 	protected $map = array();
@@ -34,21 +37,33 @@ abstract class AbstractModel {
 	protected $adapter;
 	
 	//主键名称
-	public $pk = 'id';
+	protected $pk = 'id';
 	
 	//外键名称
-	public $fk;
+	protected $fk;
 	
 	//父级ID
-	public $pid;
+	protected $pid;
 	
 	function __construct ($adapter = null){
 		
 	}
 	
-	public function setAdapter($adapter){
-		$this -> adapter = $adapter;
-		return $this;
+	//设置模型存储适配器
+	public static function on($adapter){
+		$instance = new static;
+		$instance -> adapter = $adapter;
+		return $instance;
+	}
+	
+	//获取或设置属性
+	function attr($name, $rule = null){
+		
+	}
+	
+	//删除属性
+	function removeAttr($name){
+		
 	}
 	
 	public function __set($name,$value){
@@ -81,6 +96,14 @@ abstract class AbstractModel {
 		return json_encode($this -> data);
 	}
 	
+	//查找
+	public static function find($id){
+		$instance = new static;
+		return $instance -> adapter -> where($id);
+	}
+	
+	abstract static function where($array){}
+	
 	//创建数据对象
 	public function create($data = null){
 		$this -> data = !is_null($data) ? $data : $this -> data;
@@ -99,7 +122,12 @@ abstract class AbstractModel {
 	}
 	
 	//删除数据
-	public function delete($id = null){
+	public function delete(){
+		
+	}
+	
+	//
+	public function destroy($id){
 		
 	}
 	
@@ -112,8 +140,15 @@ abstract class AbstractModel {
 	}
 	
 	//存储 同时包含批量的新增|更新|删除
-	public function save($data = null){}
+	public function save($data = null){
+		
+	}
 	
 	//拷贝
 	public function copy(){}
+	
+	//表单
+	public function form(){
+		
+	}
 }

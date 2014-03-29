@@ -1,6 +1,7 @@
 <?php
 return array(
-	'type'     => 'mysql',
+	'type'     => 'pdo',
+	'driver'   => 'mysql',
 	'host'     => 'localhost',
 	'dbname'   => 'glosea',
 	'user'     => 'root',
