@@ -13,5 +13,6 @@ return array(
 	//默认适配器类型
 	'adapter'   => 'pdo',
 	//默认数据库类型
-	'driver'    => 'mysql'
+	'driver'    => 'mysql',
+	'conn'      => Glosea :: $container['db']
 );

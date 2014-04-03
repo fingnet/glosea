@@ -1,27 +1,28 @@
 <?php
 namespace glosea\framework\base;
-use glosea\framework\db\pdo\PdoAdapter;
+use glosea\framework\db\pdo\Query;
+use glosea\framework\db\pdo\Builder;
 class Table extends AbstractModel {
+		
+	protected $query;
 	//数据表前缀	
 	protected $tablePrefix;
 	//表名称（含前缀通配）
-	protected $tableName;
+	protected $tableName = 'test';
 	//真实表名
 	protected $trueTableName;
 	
-	protected $where;
+	protected $connection;
 	
-	protected $order;
-	
-	function __construct($tableName, $isTrue = false, $adapter = false){
-		if($isTrue){
-			$this -> trueTableName = $tableName;
-		}else{
-			$this -> tableName = $tableName;	
-		}
+	function __construct($tableName = '', $isTrue = false, $connection = false){
+		//if($isTrue){
+		//	$this -> trueTableName = $tableName;
+		//}else{
+		//	$this -> tableName = $tableName;
+		//}
 		
-		if($adapter){
-			$this -> adapter = $adapter;
+		if($connection){
+			$this -> connection = $connection;
 		}
 	}
 	
@@ -30,19 +31,28 @@ class Table extends AbstractModel {
 		
 	}
 	
-	//查找
-	public function find($id){
+	public static function all(){
 		
 	}
 	
+	//查找
+	public static function find($id){
+		
+	}
+	
+	public function getTable(){
+		return $this -> tableName;
+	}
+	
 	public function newQuery(){
-		return new PdoAdapter;
+		$this -> query = new Query($this -> connection, new Builder());
+		$this -> query -> setModel($this);
+		return $this -> query;
 	}
 	
 	public function __call($method, $parameters){
-		$this -> adapter = $this -> newQuery();
-		$this -> adapter -> setModel($this);
-		return call_user_func_array(array($this -> adapter, $method), $parameters);
+		$query = $this -> newQuery();
+		return call_user_func_array(array($query, $method), $parameters);
 	}
 	
 	public static function __callStatic($method, $parameters){

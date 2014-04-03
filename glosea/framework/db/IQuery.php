@@ -7,7 +7,7 @@ namespace glosea\framework\db;
  * @license http://www.glosea.com
  * @version 0.1
  */
-interface IAdapter{
+interface IQuery{
 	
 	public function setModel($model){}
 	

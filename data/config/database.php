@@ -2,9 +2,10 @@
 return array(
 	'type'     => 'pdo',
 	'driver'   => 'mysql',
-	'host'     => 'localhost',
+	'host'     => '127.0.0.1:3306',
 	'dbname'   => 'glosea',
 	'user'     => 'root',
-	'password' => '',
-	'dsn'      => 'mysql:host=localhost;dbname=glosea'
+	'password' => 'bitnami',
+	'dsn'      => 'mysql:host=127.0.0.1:3306;dbname=glosea',
+	'charset'  => 'utf8'
 );

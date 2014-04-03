@@ -1,7 +1,7 @@
 <?php
 //应用程序主机路径
-defined('GS_DOMAIN_PATH', '/');
-defined('GS_TIME', time());
-defined('GS_DEBUG', true);
-GS_DEBUG && defined('GS_START_TIME',microtime());
-defined('GS_CLIENT_IP', getIp());
+define('GS_DOMAIN_PATH', '/');
+define('GS_TIME', time());
+define('GS_DEBUG', true);
+GS_DEBUG && define('GS_START_TIME',microtime());
+define('GS_CLIENT_IP', getIp());

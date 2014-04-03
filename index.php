@@ -1,2 +1,2 @@
 <?php
-include 'glosea/runtime';
+include 'glosea/runtime.php';

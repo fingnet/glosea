@@ -36,6 +36,10 @@ abstract class AbstractModel {
 	//IO适配器
 	protected $adapter;
 	
+	protected $hidden = array();
+	
+	protected $visible = array();
+	
 	//主键名称
 	protected $pk = 'id';
 	
@@ -84,10 +88,6 @@ abstract class AbstractModel {
 		return $this;
 	}
 	
-	public function select(){
-		return $this;
-	}
-	
 	public function data(){
 		return $this -> data;
 	}
@@ -101,8 +101,6 @@ abstract class AbstractModel {
 		$instance = new static;
 		return $instance -> adapter -> where($id);
 	}
-	
-	abstract static function where($array){}
 	
 	//创建数据对象
 	public function create($data = null){
@@ -150,5 +148,9 @@ abstract class AbstractModel {
 	//表单
 	public function form(){
 		
+	}
+	
+	public function getPk(){
+		return $this -> pk;
 	}
 }

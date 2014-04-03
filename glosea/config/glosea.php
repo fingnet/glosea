@@ -1,4 +1,4 @@
 <?php
-defined('GS_IN', true);
-defined('GS_VERSION', 0.1);
-defined('GS_ROOT', str_replace('\\', '/', substr(dirname(__FILE__), 0, -14)).'/');
+define('GS_IN', true);
+define('GS_VERSION', 0.1);
+define('GS_ROOT', str_replace('\\', '/', substr(__DIR__, 0, -14)).'/');
