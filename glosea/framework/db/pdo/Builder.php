@@ -12,8 +12,9 @@ class Builder {
 		//'group',
 		//'havings',
 		//'order',
-		//'limit',
-		//'offset',
+		'limit',
+		//'skip',
+		//'top',
 		//'unions',
 		//'lock',
 	);
@@ -35,25 +36,26 @@ class Builder {
 		return $sql;
 	}
 	
-	protected function fields($query, $field){
-		return 'SELECT ' . $this->columnize($field);
+	protected function fields($query, $fields){
+		return 'SELECT ' . $this->columnize($fields);
 	}
 	
 	protected function from($query, $table){
 		return 'FROM '.$this -> wrapTable($table);
 	}
 	
-	protected function wheres($query, $where){
-		$sql = array();
+	protected function wheres($query, $wheres){
+		
 		if (is_null($query -> wheres)){
 			return '';
 		}
 		
-		foreach ($query -> wheres as $where){
-			$method = "where{$where['type']}";
-			$sql[] = $where['boolean'] .' '. $this -> $method($query, $where);
+		$sql = array();
+		foreach ($wheres as $where){
+			$method = "where";
+			$sql[] = $where['type'] .' '. $this -> $method($query, $where);
 		}
-	
+
 		if (count($sql) > 0){
 			$sql = implode(' ', $sql);
 			return 'WHERE ' . preg_replace('/AND |OR /', '', $sql, 1);
@@ -61,17 +63,21 @@ class Builder {
 		return '';
 	}
 	
-	protected function whereBasic($query, $where){
+	protected function where($query, $where){
 		$value = $this -> paramter($where['value']);
-		return $this -> wrap($where['name']) . ' ' . $where['operator'] . ' ' . $value;
+		return $this -> wrap($where['name']) . ' ' . $where['operator'] . ' \'' . $value .'\'';
 	}
 	
-	protected function groups($query, $group){
+	protected function groups($query, $groups){
 		return 'GROUP BY '.$this -> wrapTable($table);
 	}
 	
-	protected function orders($query, $order){
+	protected function orders($query, $orders){
 		return 'ORDER BY '.$this -> wrapTable($table);
+	}
+	
+	protected function limit($query, $limit){
+		return 'LIMIT ' . $limit;
 	}
 	
 	protected function wrapTable($table){

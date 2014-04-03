@@ -33,9 +33,6 @@ abstract class AbstractModel {
 	//属性映射
 	protected $map = array();
 	
-	//IO适配器
-	protected $adapter;
-	
 	protected $hidden = array();
 	
 	protected $visible = array();
@@ -49,51 +46,47 @@ abstract class AbstractModel {
 	//父级ID
 	protected $pid;
 	
+	protected $connection;
+	
 	function __construct ($adapter = null){
 		
 	}
 	
-	//设置模型存储适配器
-	public static function on($adapter){
+	public static function on($connection){
 		$instance = new static;
-		$instance -> adapter = $adapter;
+		$instance -> connection = $connection;
 		return $instance;
 	}
 	
-	//获取或设置属性
-	function attr($name, $rule = null){
-		
-	}
-	
-	//删除属性
-	function removeAttr($name){
-		
-	}
-	
-	public function __set($name,$value){
-		$this -> data[$name] = $value;
+	public function setAttrs(array $attrs = array()){
+		$this -> attrs = $attrs;
 		return $this;
 	}
 	
-	public function __get($name){
-		return isset($this -> data[$name]) ? $this -> data[$name] : null;
+	public function getAttrs(){
+		return $this -> attrs;
 	}
 	
-	public function __isset($name){
-		return isset($this -> data[$name]);
-	}
-	
-	public function __unset($name){
-		unset($this -> data[$name]);
+	public function __set($key,$value){
+		$this -> attrs[$key] = $value;
 		return $this;
 	}
 	
-	public function data(){
-		return $this -> data;
+	public function __get($key){
+		return isset($this -> attrs[$key]) ? $this -> attrs[$key] : null;
+	}
+	
+	public function __isset($key){
+		return isset($this -> attrs[$key]);
+	}
+	
+	public function __unset($key){
+		unset($this -> attrs[$key]);
+		return $this;
 	}
 	
 	public function toJson(){
-		return json_encode($this -> data);
+		return json_encode($this -> attrs);
 	}
 	
 	//查找
@@ -119,15 +112,8 @@ abstract class AbstractModel {
 		return $this -> adapter -> insert($this -> data);
 	}
 	
-	//删除数据
-	public function delete(){
-		
-	}
-	
 	//
-	public function destroy($id){
-		
-	}
+	public function destroy($id){}
 	
 	//更新数据
 	public function update($data = null){
@@ -138,9 +124,7 @@ abstract class AbstractModel {
 	}
 	
 	//存储 同时包含批量的新增|更新|删除
-	public function save($data = null){
-		
-	}
+	public function save($data = null){}
 	
 	//拷贝
 	public function copy(){}

@@ -17,6 +17,12 @@ class Query{
 	
 	public $havings;
 	
+	public $limit;
+	
+	public $skip = 0;
+	
+	public $top;
+	
 	public $data;
 	
 	protected $connection;
@@ -51,18 +57,6 @@ class Query{
 		return $this;
 	}
 	
-	public function insert($data, $hasPk = false){
-		return $this;
-	}
-	
-	public function update($data, $replace = false){
-		return $this;
-	}
-	
-	public function replace($data){
-		return $this;
-	}
-	
 	public function delete(){
 		return $this;
 	}
@@ -82,12 +76,12 @@ class Query{
 		return $this;
 	}
 	
-	public function where($name, $vale = null, $operator = '=', $type = 'AND'){
-		$this -> wheres[] = compact($operator, $name, $type, $value);
+	public function where($name, $value = null, $operator = '=', $type = 'AND'){
+		$this -> wheres[] = compact('type', 'name', 'operator', 'value');
 		return $this;
 	}
 	
-	public function orWhere($name, $vale = null, $operator = '='){
+	public function orWhere($name, $value = null, $operator = '='){
 		$this -> wheres[] = array('OR', $name, $type, $value);
 		return $this;
 	}
@@ -118,19 +112,37 @@ class Query{
 		return $this;
 	}
 	
-	public function limit(){
+	public function limit($limit){
+		$this -> limit = $limit;
 		return $this;
 	}
 	
 	public function skip($num = 0){
+		$this -> skip = $num;
+		$this -> limit = $num . ',' . $this -> top;
 		return $this;
 	}
 	
 	public function top($num = 10){
+		$this -> top = $num;
+		$this -> limit = $this -> skip . ',' . $num;
+		return $this;
+	}
+	
+	public function insert($data, $hasPk = false){
+		return $this;
+	}
+	
+	public function update($data, $replace = false){
+		return $this;
+	}
+	
+	public function replace($data){
 		return $this;
 	}
 	
 	public function get(){
+		echo $this -> builder -> select($this) . '<br>';
 		return $this -> connection -> select($this -> builder -> select($this));
 	}
 	

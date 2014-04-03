@@ -1,5 +1,6 @@
 <?php
 namespace glosea\framework\db\pdo;
+use Closure;
 use glosea\framework\db\IConnection;
 /**
  * PDO数据库连接器
@@ -32,7 +33,7 @@ class Connection implements IConnection {
 		
 	}
 	
-	public function run($query, $bindings, $callback){
+	public function run($query, $bindings, Closure $callback){
 		$start = microtime();
 		try{
 			$result = $callback($this, $query, $bindings);

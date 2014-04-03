@@ -11,9 +11,8 @@ class GS{
 	public static function init(){
 		static :: initSession();
 		static :: initContainer();
-		$t = Table :: table('t');
-		$rs = $t -> get();
-		print_r($rs);
+		$t = Table :: where('username','张三') -> get();
+		print_r($t);
 		echo "<p>Glosea App Init  中文支持</p> \n";
 	}
 	
