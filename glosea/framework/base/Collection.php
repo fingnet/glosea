@@ -1,7 +1,7 @@
 <?php
 namespace glosea\framework\base;
-use Closure;
-class Collection {
+use Closure,ArrayAccess,IteratorAggregate,ArrayIterator,Countable;
+class Collection implements ArrayAccess,IteratorAggregate,Countable {
 	
 	protected $items;
 	
@@ -11,6 +11,34 @@ class Collection {
 		$this -> items = $items;
 		//$this -> model = $model ?: $this ->model;
 	}
+	
+	public function getIterator() {
+        return new ArrayIterator($this -> items);
+    }
+	
+	public function offsetGet($offset) {
+        return isset($this -> items[$offset]) ? $this -> items[$offset] : null;
+    }
+	
+    public function offsetExists($offset) {
+        return isset($this -> items[$offset]);
+    }
+	
+	public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this -> items[] = $value;
+        } else {
+            $this -> items[$offset] = $value;
+        }
+    }
+	
+    public function offsetUnset($offset) {
+        unset($this -> items[$offset]);
+    }
+	
+	public function count() {
+        return count($this -> items);
+    }
 	
 	public function add(array $items, $merge = true){
 		if($merge){

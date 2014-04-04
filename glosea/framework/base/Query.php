@@ -1,7 +1,6 @@
 <?php
 namespace glosea\framework\base;
 use glosea\framework\db\pdo\Query as BaseQuery;
-use glosea\framework\base\Collection;
 class Query extends BaseQuery {
 	
 	function __construct($connection, $builder){
@@ -22,7 +21,7 @@ class Query extends BaseQuery {
 	
 	public function get($fields = array('*')){
 		$models = $this -> getModels((array) $this -> field($fields, func_get_args()));
-		return new Collection($models);
+		return $this -> model -> newCollection($models);
 	}
 	
 	public function find($id){

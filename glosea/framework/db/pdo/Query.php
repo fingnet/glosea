@@ -141,6 +141,11 @@ class Query{
 		return $this;
 	}
 	
+	//还原软删除
+	public function restore(){
+		
+	}
+	
 	public function get($fields = array('*')){
 		$this -> select($this -> field($fields, func_get_args()));
 		echo $this -> builder -> select($this) . '<br>';

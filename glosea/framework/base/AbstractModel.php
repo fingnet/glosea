@@ -1,5 +1,6 @@
 <?php
 namespace glosea\framework\base;
+use ArrayAccess,IteratorAggregate,ArrayIterator,Countable;
 /**
  * 模型抽象类定义
  * 
@@ -8,7 +9,7 @@ namespace glosea\framework\base;
  * @license http://www.glosea.org
  * @version $Id$
  */
-abstract class AbstractModel {
+abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable {
 	//属性列表
 	protected $attrs;
 	
@@ -50,6 +51,9 @@ abstract class AbstractModel {
 	
 	protected $roles;
 	
+	//逻辑删除
+	protected $logicDelete;
+	
 	function __construct ($adapter = null){
 		
 	}
@@ -58,6 +62,37 @@ abstract class AbstractModel {
 		$instance = new static;
 		$instance -> connection = $connection;
 		return $instance;
+	}
+	
+	//实现数组迭代器接口
+	public function getIterator() {
+        return new ArrayIterator($this -> attrs);
+    }
+	
+	//实现数组数据访问接口
+	public function offsetGet($offset) {
+        return isset($this -> attrs[$offset]) ? $this -> attrs[$offset] : null;
+    }
+	
+    public function offsetExists($offset) {
+        return isset($this -> attrs[$offset]);
+    }
+	
+	public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this -> attrs[] = $value;
+        } else {
+            $this -> attrs[$offset] = $value;
+        }
+    }
+	
+    public function offsetUnset($offset) {
+        unset($this -> attrs[$offset]);
+    }
+	
+	//实现数据统计接口
+	public function count() {
+		return count($this -> attrs);
 	}
 	
 	public function setAttrs(array &$attrs = array()){
@@ -129,7 +164,9 @@ abstract class AbstractModel {
 	
 	
 	//存储 同时包含批量的新增|更新|删除
-	public function save(){}
+	public function save(){
+		
+	}
 	
 	//拷贝
 	public function copy(){}

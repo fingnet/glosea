@@ -11,9 +11,14 @@ class GS{
 	public static function init(){
 		static :: initSession();
 		static :: initContainer();
-		$t = Table :: find('张三');
-		//$t -> email = 'fingnet@gmail.com';
-		print_r($t);
+		$t = Table :: all();
+		$t -> email = 'fingnet@gmail.com';
+		print_r(count($t));
+		foreach ($t as $key => $val) {
+			print_r(count($val));
+			echo($val['username'].'<br>');
+			echo $val -> email.'<br>';
+		}
 		echo "<p>Glosea App Init  中文支持</p> \n";
 	}
 	

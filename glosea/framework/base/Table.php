@@ -2,6 +2,7 @@
 namespace glosea\framework\base;
 use glosea\framework\base\Query;
 use glosea\framework\db\pdo\Builder;
+use glosea\framework\base\Collection;
 class Table extends AbstractModel {
 		
 	protected $query;
@@ -18,6 +19,11 @@ class Table extends AbstractModel {
 		$this -> setAttrs($attrs);
 	}
 	
+	public function setTable($table){
+		$this -> tableName = $table;
+		return $this;
+	}
+	
 	public function getTable(){
 		return $this -> tableName;
 	}
@@ -25,6 +31,10 @@ class Table extends AbstractModel {
 	public function setConnection($connection){
 		$this -> connection = $connection;
 		return $this;
+	}
+	
+	public function getConnection($connection){
+		return $this -> connection;
 	}
 	
 	public function newInstance($attrs = array(), $exists = false){
@@ -42,6 +52,10 @@ class Table extends AbstractModel {
 		$this -> query = new Query($this -> connection, new Builder());
 		$this -> query -> setModel($this);
 		return $this -> query;
+	}
+	
+	public function newCollection(array $models = array()){
+		return new Collection($models);
 	}
 	
 	public function __call($method, $parameters){
