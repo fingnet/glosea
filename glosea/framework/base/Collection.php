@@ -41,9 +41,9 @@ class Collection implements ArrayAccess,IteratorAggregate,Countable {
 	}
 	
 	public function add(array $items, $merge = true){
-		if($merge){
+		if ($merge) {
 			$this -> items = array_merge($items, $this -> items);
-		}else{
+		} else {
 			$this -> items = $items;
 		}
 		return $this;

@@ -171,11 +171,6 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	//拷贝
 	public function copy(){}
 	
-	//表单
-	public function form(){
-		
-	}
-	
 	public function getPk(){
 		return $this -> pk;
 	}
