@@ -12,13 +12,10 @@ class Table extends AbstractModel {
 	//真实表名
 	protected $trueTableName;
 	
+	protected $pk = 'username';
+	
 	function __construct(array $attrs){
 		$this -> setAttrs($attrs);
-	}
-	
-	public static function all(array $fields = array('*')){
-		$instance = new static;
-		return $instance -> newQuery() -> get($fields);
 	}
 	
 	public function getTable(){
@@ -31,14 +28,13 @@ class Table extends AbstractModel {
 	}
 	
 	public function newInstance($attrs = array(), $exists = false){
-		$model = new static((array) $attrs);
+		$model = new static($attrs);
 		$model -> exists = $exists;
 		return $model;
 	}
 	
 	public function newFromQuery($attrs = array()){
-		$instance = $this -> newInstance(array(), true);
-		$instance -> setAttrs((array) $attrs);
+		$instance = $this -> newInstance((array) $attrs, true);
 		return $instance;
 	}
 	

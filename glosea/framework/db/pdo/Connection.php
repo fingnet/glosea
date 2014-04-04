@@ -1,6 +1,7 @@
 <?php
 namespace glosea\framework\db\pdo;
 use Closure;
+use PDO;
 use glosea\framework\db\IConnection;
 /**
  * PDO数据库连接器
@@ -21,15 +22,23 @@ class Connection implements IConnection {
 		return $this -> run($query, $bindings, function($me, $query, $bindings){
 			$statement = $me -> pdo -> prepare($query);
 			$statement -> execute($bindings);
-			return $statement -> fetchAll();
+			return $statement -> fetchAll(PDO :: FETCH_ASSOC);
 		});
 	}
 	
-	public function free(){
+	public function insert(){
 		
 	}
 	
-	public function query(){
+	public function update(){
+		
+	}
+	
+	public function replace(){
+		
+	}
+	
+	public function free(){
 		
 	}
 	

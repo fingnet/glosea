@@ -31,11 +31,11 @@ abstract class AbstractModel {
 	protected $parent = array();
 	
 	//属性映射
-	protected $map = array();
+	protected $map;
 	
-	protected $hidden = array();
+	protected $hidden;
 	
-	protected $visible = array();
+	protected $visible;
 	
 	//主键名称
 	protected $pk = 'id';
@@ -48,6 +48,8 @@ abstract class AbstractModel {
 	
 	protected $connection;
 	
+	protected $roles;
+	
 	function __construct ($adapter = null){
 		
 	}
@@ -58,13 +60,33 @@ abstract class AbstractModel {
 		return $instance;
 	}
 	
-	public function setAttrs(array $attrs = array()){
+	public function setAttrs(array &$attrs = array()){
 		$this -> attrs = $attrs;
 		return $this;
 	}
 	
-	public function getAttrs(){
-		return $this -> attrs;
+	public function add(array $attrs){
+		$this -> attrs = array_merge($this -> attrs, $attrs);
+		return $this;
+	}
+	
+	public function create(array $attrs){
+		$this -> add($attrs);
+		$this -> save();
+	}
+	
+	public function addRole($key, $role){
+		$this -> roles[$key] = $role;
+		return $this; 
+	}
+	
+	public function removeRole($key){
+		unset($this -> roles[$key]);
+		return $this;
+	}
+	
+	public function setRoles($roles){
+		
 	}
 	
 	public function __set($key,$value){
@@ -85,46 +107,29 @@ abstract class AbstractModel {
 		return $this;
 	}
 	
+	public function escape($key){
+		return isset($this -> attrs[$key]) ? $this -> attrs[$key] : null;
+	}
+	
+	public function toArray(){
+		return clone $this -> attrs;
+	}
+	
 	public function toJson(){
 		return json_encode($this -> attrs);
 	}
 	
-	//查找
-	public static function find($id){
-		$instance = new static;
-		return $instance -> adapter -> where($id);
+	//模型校验
+	public function validate(){
+		
 	}
 	
-	//创建数据对象
-	public function create($data = null){
-		$this -> data = !is_null($data) ? $data : $this -> data;
-		if(is_null($this -> data)){
-			
-		}
-		return $this;
-	}
-	
-	//新增数据
-	public function add($data = null){
-		if(!is_null($data)){
-			$this -> create($data);
-		}
-		return $this -> adapter -> insert($this -> data);
-	}
-	
-	//
+	//删除数据
 	public function destroy($id){}
 	
-	//更新数据
-	public function update($data = null){
-		if(!is_null($data)){
-			$this -> create($data);
-		}
-		return $this -> adapter -> update($this -> data, $this -> pk);
-	}
 	
 	//存储 同时包含批量的新增|更新|删除
-	public function save($data = null){}
+	public function save(){}
 	
 	//拷贝
 	public function copy(){}

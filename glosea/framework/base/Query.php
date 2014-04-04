@@ -9,8 +9,8 @@ class Query extends BaseQuery {
 		$this -> builder = $builder;
 	}
 	
-	public function getModels(){
-		$rs = parent :: get();
+	public function getModels(array $fields){
+		$rs = parent :: get($fields);
 		$models = array();
 		foreach ($rs as $model) {
 			$models[] = $model = $this -> model -> newFromQuery($model) 
@@ -20,13 +20,13 @@ class Query extends BaseQuery {
 		return $models;
 	}
 	
-	public function get(array $field = array('*')){
-		$models = $this -> getModels();
+	public function get($fields = array('*')){
+		$models = $this -> getModels((array) $this -> field($fields, func_get_args()));
 		return new Collection($models);
 	}
 	
-	public function first(){
-		return $this -> top(1) -> get() -> first();
+	public function find($id){
+		return $this -> where($this -> model -> getPk(), $id) -> first();
 	}
 	
 }

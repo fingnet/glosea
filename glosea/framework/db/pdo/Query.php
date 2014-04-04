@@ -57,12 +57,8 @@ class Query{
 		return $this;
 	}
 	
-	public function delete(){
-		return $this;
-	}
-	
-	public function select($select = array('*')){
-		$this -> fields = is_array($select) ? $select : func_get_args();
+	public function select($fields = array('*')){
+		$this -> fields = $this -> field($fields, func_get_args());
 		return $this;
 	}
 	
@@ -73,6 +69,18 @@ class Query{
 	
 	public function table($table){
 		$this -> from($table);
+		return $this;
+	}
+	
+	public function join($table){
+		return $this;
+	}
+	
+	public function leftJoin($table){
+		return $this;
+	}
+	
+	public function rightJoin($table){
 		return $this;
 	}
 	
@@ -96,22 +104,6 @@ class Query{
 		return $this;
 	}
 	
-	public function native($shell){
-		return $this;
-	}
-	
-	public function join($table){
-		return $this;
-	}
-	
-	public function leftJoin($table){
-		return $this;
-	}
-	
-	public function rightJoin($table){
-		return $this;
-	}
-	
 	public function limit($limit){
 		$this -> limit = $limit;
 		return $this;
@@ -129,6 +121,10 @@ class Query{
 		return $this;
 	}
 	
+	public function save(){
+		
+	}
+	
 	public function insert($data, $hasPk = false){
 		return $this;
 	}
@@ -141,45 +137,56 @@ class Query{
 		return $this;
 	}
 	
-	public function get(){
+	public function delete($id){
+		return $this;
+	}
+	
+	public function get($fields = array('*')){
+		$this -> select($this -> field($fields, func_get_args()));
 		echo $this -> builder -> select($this) . '<br>';
 		return $this -> connection -> select($this -> builder -> select($this));
 	}
 	
-	public function first(){
+	public function all($fields = array('*')){
+		return $this -> get($this -> field($fields, func_get_args()));
+	}
+	
+	public function first($fields = array('*')){
+		return $this -> top(1) 
+						-> get($this -> field($fields, func_get_args())) 
+						-> first();
+	}
+	
+	public function last($fields = array('*')){
+		return $this -> get($this -> field($fields, func_get_args())) -> last();
+	}
+	
+	public function pluck($field){
 		
 	}
 	
-	public function pluck(){
+	public function max($field){
 		
 	}
 	
-	public function columns(){
+	public function min($field){
 		
 	}
 	
-	public function max(){
+	public function sum($field){
 		
 	}
 	
-	public function min(){
+	public function avg($field){
 		
 	}
 	
-	public function sum(){
+	public function count($field = '*'){
 		
 	}
 	
-	public function avg(){
-		
-	}
-	
-	public function count(){
-		
-	}
-	
-	private function _build() {
-		
+	protected function field($fields, $args) {
+		return is_array($fields) ? $fields : $args;
 	}
 	 
 }

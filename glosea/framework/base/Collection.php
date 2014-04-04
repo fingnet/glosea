@@ -5,8 +5,20 @@ class Collection {
 	
 	protected $items;
 	
-	function __construct(array $items = array()){
+	//protected $model;
+	
+	function __construct(array $items, $model = null){
 		$this -> items = $items;
+		//$this -> model = $model ?: $this ->model;
+	}
+	
+	public function add(array $items, $merge = true){
+		if($merge){
+			$this -> items = array_merge($items, $this -> items);
+		}else{
+			$this -> items = $items;
+		}
+		return $this;
 	}
 	
 	public function all(){
@@ -24,6 +36,18 @@ class Collection {
 	public function each(Closure $callback){
 		array_map($callback, $this->items);
 		return $this;
+	}
+	
+	public function size(){
+		return count($this -> items);
+	}
+	
+	public function isEmpty(){
+		return ! count($this -> items) > 0;
+	}
+	
+	public function reset(){
+		unset($this -> items);
 	}
 	
 }

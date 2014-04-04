@@ -11,7 +11,8 @@ class GS{
 	public static function init(){
 		static :: initSession();
 		static :: initContainer();
-		$t = Table :: where('username','张三') -> get();
+		$t = Table :: find('张三');
+		//$t -> email = 'fingnet@gmail.com';
 		print_r($t);
 		echo "<p>Glosea App Init  中文支持</p> \n";
 	}
@@ -44,7 +45,13 @@ class GS{
 		
 	}
 	
+	//导入类
 	public static function import($class, $appId = null){
+		
+	}
+	
+	//载入类对象实例
+	public static function load($class, $appId = null){
 		
 	}
 }
