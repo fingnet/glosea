@@ -1,0 +1,147 @@
+@bgColor: #eee;
+@fontSize: 1.2em;
+@inlineMarginRight: 10px;
+@blockMarginBottom:1.2%;
+.block-margin{
+	margin-bottom:@blockMarginBottom;
+}
+
+body{
+	background-color:@bgColor;
+	font:Verdana, Geneva, sans-serif @fontSize;
+}
+
+html,body{ height:100%; overflow:hidden;}
+
+.signin-container{
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	position: absolute;
+	background-color: #fff;
+	top: 0;
+	z-index: 9999;
+	background-image: url(/assets/images/Ocean-Sunsets.jpg);
+	//background-size: cover;
+	background-position: center 0;
+	background-repeat: no-repeat;
+}
+
+.signin-container .logo {
+	position:absolute;
+	font-size:2.5em;
+	color:#fff;
+	top:5%;
+	left:5%;
+	text-shadow: 0 0 5px #333;
+	opacity:.4;
+}
+
+.signin-container .logo small {
+	font-size:.4em;
+}
+
+
+.signin-container .copyright {
+	position:absolute;
+	color:#fff;
+	bottom:5%;
+	width:100%;
+	text-align:center;
+	text-shadow: 0 0 5px #333;
+}
+
+.signin-container .panel {
+	width:500px;
+	margin-top:15%;
+	box-shadow:#666 0 0 20px;
+	opacity:.8;
+}
+
+.container{
+	width:100%;
+	height:100%;
+	padding:0;
+	padding-left:160px;
+	//padding-right:40%;
+	position:relative;
+}
+
+.side {
+	width:160px;
+	background-color:#fff;
+	height:100%;
+	border-right:#ddd solid 1px;
+	position:fixed;
+	left:0;
+}
+
+.side .list-group{
+	margin-right:-1px;
+}
+
+.side .list-group-item{
+	border-radius:0;
+	font-size:14px;
+}
+
+.side .glyphicon{
+	margin-right:@inlineMarginRight;
+}
+
+.main{
+	width:100%;
+	height:100%;
+	padding:1.5%;
+	overflow:auto;
+}
+
+.main h4{
+	margin:0;
+	.block-margin;
+}
+
+.main .nav>li>a{
+	padding: 7px 30px;
+	background-color: #fff;
+	border:none;
+}
+
+.main .nav>li.active>a{
+	background-color: #eee;
+	color:#000;
+	border: 1px solid #ddd;
+}
+
+.main .panel-heading {
+	padding: 8px 10px;
+}
+
+.main .pagination{
+	margin:0;	
+}
+
+.main td>.glyphicon{
+	margin-right:@inlineMarginRight;
+}
+
+.main hr {
+	border-top: 1px solid #ddd;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.main-header {
+	//position:fixed;
+}
+
+.view {
+	width:40%;
+	height:100%;
+	position:absolute;
+	top:0;
+	right:0;
+	background-color:#fff;
+	padding:1.5%;
+	border-left:#ddd 1px solid;
+}
