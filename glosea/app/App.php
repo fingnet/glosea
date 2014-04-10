@@ -5,13 +5,10 @@ class App{
 	
 	//AppId
 	protected $id;
-	
 	//默认数据库
 	protected $db;
 	protected $root;
-	
-	protected $currentController;
-	
+	protected $controller;
 	protected $action;
 	
 }

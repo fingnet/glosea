@@ -1,14 +1,12 @@
 <?php
+namespace glosea\framework\base;
+use AbstractModel;
 class Model extends AbstractModel{
 	
-	function __construct($attrs = null, $entity = null, $adapter = null){
-		if(!is_null($adapter)){
-			$this -> setAdapter($adapter);
+	function __construct($attrs = null, $entity = null){
+		if(!is_null($attrs)){
+			$this -> setAttrs($attrs);
 		}
 	}
 	
-	//获取和设置实体名称
-	function entity($name = null){
-		
-	}
 }

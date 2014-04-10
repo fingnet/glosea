@@ -125,12 +125,16 @@ class Query{
 		
 	}
 	
-	public function insert($data, $hasPk = false){
-		return $this;
+	public function insert(array $values){
+		$sql = $this -> builder -> insert($this, $values);
+		echo $sql . '<br>';
+		return $this -> connection -> insert($sql);
 	}
 	
-	public function update($data, $replace = false){
-		return $this;
+	public function update(array $values){
+		$sql = $this -> builder -> update($this, $values);
+		echo $sql . '<br>';
+		return $this -> connection -> update($sql);
 	}
 	
 	public function replace($data){

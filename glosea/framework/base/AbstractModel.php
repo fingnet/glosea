@@ -13,9 +13,6 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	//属性列表
 	protected $attrs;
 	
-	//模型数据对象
-	protected $data = null;
-	
 	//数据是否存在
 	protected $exists = false;
 	
@@ -53,10 +50,6 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	
 	//逻辑删除
 	protected $logicDelete;
-	
-	function __construct ($adapter = null){
-		
-	}
 	
 	public static function on($connection){
 		$instance = new static;
@@ -101,7 +94,7 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	}
 	
 	public function add(array $attrs){
-		$this -> attrs = array_merge($this -> attrs, $attrs);
+		$this -> attrs = array_merge((array) $this -> attrs, $attrs);
 		return $this;
 	}
 	
@@ -120,8 +113,9 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 		return $this;
 	}
 	
-	public function setRoles($roles){
-		
+	public function setRoles(array $roles){
+		$this -> roles = array_merge((array) $this -> roles, $roles);
+		return $this;
 	}
 	
 	public function __set($key,$value){
@@ -156,7 +150,10 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	
 	//模型校验
 	public function validate(){
-		
+		if(is_null($this -> roles)){
+			
+		}
+		return true;
 	}
 	
 	//删除数据
@@ -165,11 +162,10 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	
 	//存储 同时包含批量的新增|更新|删除
 	public function save(){
-		
+		if(! $this -> validate() ){
+			
+		}
 	}
-	
-	//拷贝
-	public function copy(){}
 	
 	public function getPk(){
 		return $this -> pk;

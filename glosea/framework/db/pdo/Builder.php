@@ -13,8 +13,6 @@ class Builder {
 		//'havings',
 		//'order',
 		'limit',
-		//'skip',
-		//'top',
 		//'unions',
 		//'lock',
 	);
@@ -24,6 +22,51 @@ class Builder {
 			$query -> fields = array('*');
 		}
 		return trim($this -> concatenate($this -> components($query)));
+	}
+	
+	public function insert(Query $query, array $values){
+		$table = $this -> wrapTable($query->from);
+		if ( ! is_array(reset($values))){
+			$values = array($values);
+		}
+
+		$columns = $this -> columnize(array_keys(reset($values)));
+		$parameters = $this -> parameterize(reset($values));
+		$value = array_fill(0, count($values), "($parameters)");
+		$parameters = implode(', ', $value);
+		return "INSERT INTO $table ($columns) VALUES $parameters";
+	}
+	
+	public function update($query, $values){
+		$table = $this -> wrapTable($query -> from);
+		$columns = array();
+
+		foreach ($values as $key => $value)
+		{
+			$columns[] = $this -> wrap($key).' = '.$this -> parameter($value);
+		}
+
+		$columns = implode(', ', $columns);
+
+		if (isset($query->joins)){
+			$joins = ' ' . $this -> joins($query, $query -> joins);
+		}else{
+			$joins = '';
+		}
+		
+		$where = $this -> wheres($query, $query -> wheres);
+
+		$sql = trim("UPDATE {$table}{$joins} SET $columns $where");
+
+		if (isset($query -> orders)){
+			$sql .= ' '.$this -> orders($query, $query->orders);
+		}
+
+		if (isset($query->limit)){
+			$sql .= ' '.$this -> limit($query, $query->limit);
+		}
+
+		return rtrim($sql);
 	}
 	
 	protected function components($query){
@@ -64,8 +107,8 @@ class Builder {
 	}
 	
 	protected function where($query, $where){
-		$value = $this -> paramter($where['value']);
-		return $this -> wrap($where['name']) . ' ' . $where['operator'] . ' \'' . $value .'\'';
+		$value = $this -> parameter($where['value']);
+		return $this -> wrap($where['name']) . ' ' . $where['operator'] .  $value ;
 	}
 	
 	protected function groups($query, $groups){
@@ -94,11 +137,15 @@ class Builder {
 		return $name;
 	}
 	
-	protected function paramter($value){
-		return $value;
+	protected function parameter($value){
+		return '\''. $value . '\'';
 	}
 	
 	public function columnize(array $columns){
 		return implode(', ', array_map(array($this, 'wrap'), $columns));
+	}
+	
+	public function parameterize(array $values){
+		return implode(', ', array_map(array($this, 'parameter'), $values));
 	}
 }

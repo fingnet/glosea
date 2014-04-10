@@ -11,14 +11,13 @@ class GS{
 	public static function init(){
 		static :: initSession();
 		static :: initContainer();
-		$t = Table :: all();
-		$t -> email = 'fingnet@gmail.com';
-		print_r(count($t));
-		foreach ($t as $key => $val) {
-			print_r(count($val));
-			echo($val['username'].'<br>');
-			echo $val -> email.'<br>';
-		}
+		Table :: insert(array('username' => '1'));
+		Table :: insert(array('username' => '2'));
+		Table :: insert(array('username' => '3'));
+		$t = Table :: where('username','1234') -> where('email',null,'<>') -> update(array(
+							'username'=>'1',
+							'email'=>'fingnet@gmail.com'
+						));
 		echo "<p>Glosea App Init  中文支持</p> \n";
 	}
 	

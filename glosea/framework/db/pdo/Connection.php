@@ -26,12 +26,18 @@ class Connection implements IConnection {
 		});
 	}
 	
-	public function insert(){
-		
+	public function insert($sql, $bindings = array()){
+		return $this -> run($sql, $bindings, function($me, $sql, $bindings){
+			$statement = $me -> pdo -> prepare($sql);
+			return $statement -> execute($bindings);
+		});
 	}
 	
-	public function update(){
-		
+	public function update($sql, $bindings = array()){
+		return $this -> run($sql, $bindings, function($me, $sql, $bindings){
+			$statement = $me -> pdo -> prepare($sql);
+			return $statement -> execute($bindings);
+		});
 	}
 	
 	public function replace(){
