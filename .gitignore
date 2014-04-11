@@ -1,3 +1,7 @@
 *.class
 *.pyc
 *.pyo
+
+assets/perpetual/css/perpetual.css
+
+assets/perpetual/index.html

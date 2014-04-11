@@ -2,6 +2,7 @@
 @fontSize: 1.2em;
 @inlineMarginRight: 10px;
 @blockMarginBottom:1.2%;
+@sideWidth:160px;
 .block-margin{
 	margin-bottom:@blockMarginBottom;
 }
@@ -62,13 +63,13 @@ html,body{ height:100%; overflow:hidden;}
 	width:100%;
 	height:100%;
 	padding:0;
-	padding-left:160px;
+	padding-left:@sideWidth;
 	//padding-right:40%;
 	position:relative;
 }
 
 .side {
-	width:160px;
+	width:@sideWidth;
 	background-color:#fff;
 	height:100%;
 	border-right:#ddd solid 1px;
