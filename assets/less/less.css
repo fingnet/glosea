@@ -103,14 +103,14 @@ html,body{ height:100%; overflow:hidden;}
 }
 
 .main .nav>li>a{
-	padding: 7px 30px;
-	background-color: #fff;
+	padding: 7px 20px;
+	//background-color: #fff;
 	border:none;
 }
 
 .main .nav>li.active>a{
-	background-color: #eee;
-	color:#000;
+	//background-color: #eee;
+	//color:#000;
 	border: 1px solid #ddd;
 }
 
