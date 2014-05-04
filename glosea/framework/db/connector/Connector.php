@@ -3,6 +3,10 @@ namespace glosea\framework\db\connector;
 use PDO;
 class Connector{
 	
+	function __construct($config){
+		
+	}
+	
 	public static function createConnection($config){
 		return new PDO($config['dsn'], $config['user'], $config['password']);
 	}

@@ -6,6 +6,6 @@ class Table extends BaseTable{
 	
 	function __construct(array $attrs = array()){
 		parent :: __construct($attrs);
-		$this -> setConnection(new Connection(GS :: $container['db']));
+		$this -> setConnection(new Connection(Glosea::get('db')));
 	}
 }

@@ -24,6 +24,14 @@ class Query extends BaseQuery {
 		return $this -> model -> newCollection($models);
 	}
 	
+	public function getArray($fields = array('*')){
+		return parent::get((array) $this -> field($fields, func_get_args()));
+	}
+	
+	public function getJson($fields = array('*')){
+		return json_encode(parent::get((array) $this -> field($fields, func_get_args())));
+	}
+	
 	public function find($id){
 		return $this -> where($this -> model -> getPk(), $id) -> first();
 	}

@@ -1,6 +1,6 @@
 <?php
 namespace glosea\framework\base;
-use ArrayAccess,IteratorAggregate,ArrayIterator,Countable;
+use glosea\framework\support\Model;
 /**
  * 模型抽象类定义
  * 
@@ -9,9 +9,7 @@ use ArrayAccess,IteratorAggregate,ArrayIterator,Countable;
  * @license http://www.glosea.org
  * @version $Id$
  */
-abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable {
-	//属性列表
-	protected $attrs;
+abstract class AbstractModel extends Model{
 	
 	//数据是否存在
 	protected $exists = false;
@@ -48,6 +46,13 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 	
 	protected $roles;
 	
+	protected $endRole = array(
+		'create','update','type','metaType','required','updateReuired','unique','ifRequire',
+		'min','max','confirm','between','include','ignore','filter'
+	);
+	
+	protected $frontRole = array();
+	
 	//逻辑删除
 	protected $logicDelete;
 	
@@ -55,37 +60,6 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 		$instance = new static;
 		$instance -> connection = $connection;
 		return $instance;
-	}
-	
-	//实现数组迭代器接口
-	public function getIterator() {
-		return new ArrayIterator($this -> attrs);
-	}
-	
-	//实现数组数据访问接口
-	public function offsetGet($offset) {
-		return isset($this -> attrs[$offset]) ? $this -> attrs[$offset] : null;
-	}
-	
-	public function offsetExists($offset) {
-		return isset($this -> attrs[$offset]);
-	}
-	
-	public function offsetSet($offset, $value) {
-		if (is_null($offset)) {
-			$this -> attrs[] = $value;
-		} else {
-			$this -> attrs[$offset] = $value;
-		}
-	}
-	
-	public function offsetUnset($offset) {
-		unset($this -> attrs[$offset]);
-	}
-	
-	//实现数据统计接口
-	public function count() {
-		return count($this -> attrs);
 	}
 	
 	public function setAttrs(array &$attrs = array()){
@@ -118,21 +92,8 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 		return $this;
 	}
 	
-	public function __set($key,$value){
-		$this -> attrs[$key] = $value;
-		return $this;
-	}
-	
-	public function __get($key){
-		return isset($this -> attrs[$key]) ? $this -> attrs[$key] : null;
-	}
-	
-	public function __isset($key){
-		return isset($this -> attrs[$key]);
-	}
-	
-	public function __unset($key){
-		unset($this -> attrs[$key]);
+	public function clearRoles(){
+		$this -> roles = null;
 		return $this;
 	}
 	
@@ -167,7 +128,7 @@ abstract class AbstractModel implements ArrayAccess,IteratorAggregate,Countable 
 		}
 	}
 	
-	public function getPk(){
+	public function pk(){
 		return $this -> pk;
 	}
 }

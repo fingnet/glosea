@@ -2,18 +2,18 @@
 namespace glosea\framework\base;
 use glosea\framework\base\Query;
 use glosea\framework\db\pdo\Builder;
-use glosea\framework\base\Collection;
+use glosea\framework\support\Collection;
 class Table extends AbstractModel {
 		
 	protected $query;
 	//数据表前缀	
 	protected $tablePrefix;
 	//表名称（含前缀通配）
-	protected $tableName = 't';
+	protected $tableName;
 	//真实表名
 	protected $trueTableName;
 	
-	protected $pk = 'username';
+	protected $pk = 'id';
 	
 	function __construct(array $attrs){
 		$this -> setAttrs($attrs);
@@ -25,7 +25,7 @@ class Table extends AbstractModel {
 	}
 	
 	public function getTable(){
-		return $this -> tableName;
+		return $this -> trueTableName ? $this -> trueTableName : $this -> tablePrefix . $this -> tableName;
 	}
 	
 	public function setConnection($connection){

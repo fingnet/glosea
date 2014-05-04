@@ -1,34 +1,38 @@
 <?php
 namespace glosea\framework\base;
-use Service;
-class Rest extends Service {
+class Rest {
 	
-	function __construct($model = null){
-		
-	}
+	protected $controller;
 	
-	//获取
-	public function getMethod(){
-		
+	static $method = array(
+		'GET'    => 'get',
+		'POST'   => 'post',
+		'PUT'    => 'put',
+		'DELETE' => 'delete'
+	);
+	
+	function __construct($controller){
+		$method = static::$method[strtoupper($controller -> method())];
+		$this -> controller = $controller;
 	}
 	
 	//读取数据
-	public function get($id){
-		return is_null($id) ? $this -> $model -> getRow($id) : $this -> $model -> getList();
+	public function get($id = null){
+		return is_null($id) ? $this->controller->model->getArray() : $this->controller->model->find($id);
 	}
 	
 	//新增数据
-	public function put(){
-		return $this -> $model -> create();
+	public function post($id){
+		return $this->controller->model->update($id);
 	}
 	
 	//修改数据
-	public function post($id){
-		return $this -> $model -> update($id);
+	public function put(){
+		return $this->controller->model-> create();
 	}
 	
 	//删除数据
 	public function delete($id){
-		return $this -> $model -> remove($id);
+		return $this->controller->model->remove($id);
 	}
 }

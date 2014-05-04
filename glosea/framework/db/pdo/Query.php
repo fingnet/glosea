@@ -152,8 +152,9 @@ class Query{
 	
 	public function get($fields = array('*')){
 		$this -> select($this -> field($fields, func_get_args()));
-		echo $this -> builder -> select($this) . '<br>';
-		return $this -> connection -> select($this -> builder -> select($this));
+		$sql = $this -> builder -> select($this);
+		console($sql);
+		return $this -> connection -> select($sql);
 	}
 	
 	public function all($fields = array('*')){
