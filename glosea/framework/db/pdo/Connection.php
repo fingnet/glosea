@@ -15,28 +15,28 @@ class Connection implements IConnection {
 	protected $pdo;
 	
 	function __construct($pdo){
-		$this -> pdo = $pdo;
+		$this->pdo = $pdo;
 	}
 	
 	public function select($query, $bindings = array()){
-		return $this -> run($query, $bindings, function($me, $query, $bindings){
-			$statement = $me -> pdo -> prepare($query);
-			$statement -> execute($bindings);
-			return $statement -> fetchAll(PDO :: FETCH_ASSOC);
+		return $this->run($query, $bindings, function($me, $query, $bindings){
+			$statement = $me->pdo->prepare($query);
+			$statement->execute($bindings);
+			return $statement->fetchAll(PDO::FETCH_ASSOC);
 		});
 	}
 	
 	public function insert($sql, $bindings = array()){
-		return $this -> run($sql, $bindings, function($me, $sql, $bindings){
-			$statement = $me -> pdo -> prepare($sql);
-			return $statement -> execute($bindings);
+		return $this->run($sql, $bindings, function($me, $sql, $bindings){
+			$statement = $me->pdo->prepare($sql);
+			return $statement->execute($bindings);
 		});
 	}
 	
 	public function update($sql, $bindings = array()){
-		return $this -> run($sql, $bindings, function($me, $sql, $bindings){
-			$statement = $me -> pdo -> prepare($sql);
-			return $statement -> execute($bindings);
+		return $this->run($sql, $bindings, function($me, $sql, $bindings){
+			$statement = $me->pdo->prepare($sql);
+			return $statement->execute($bindings);
 		});
 	}
 	

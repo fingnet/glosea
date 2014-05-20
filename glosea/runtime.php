@@ -6,8 +6,8 @@ GS_DEBUG ? error_reporting(E_ALL) : error_reporting(0);
 use glosea\core\Glosea;
 Glosea::init();
 use glosea\core\Table;
-Glosea::route('/test', function(){
-    $t = Table::table('gs_user')->getJson('user_name','email');
-	echo $t;
+Glosea::route('/test', function($router){
+    parse_str(file_get_contents('php://input'), $data);
+	print_r(Glosea::request()->method);
 });
 Glosea::start();

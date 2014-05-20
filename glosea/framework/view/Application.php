@@ -10,4 +10,10 @@ class Application extends Base {
 		$this->type = $type;
 		return $this;
 	}
+	
+	public function render($file = null, $data = null){
+		$this->response
+		->header('Content-Type', 'application/'.$this->type)
+		->write(json_encode($this->attrs))->send();
+	}
 }

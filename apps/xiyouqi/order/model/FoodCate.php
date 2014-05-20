@@ -4,70 +4,91 @@ use glosea\core\Table;
 class FoodCate extends Table {
 	
 	protected $tableName = 'gs_fo_food_cate';
-	protected $pk = 'cate_id';
+	protected $idName = 'cate_id';
 	protected $roles = array(
 		array(
-			'id' => 'cate_id',
 			'name' => 'cate_id',
 			'alias' => 'ID',
-			'create' => false,
-			'update' => false,
-			'hidden' => false,
 			'type' => 'key',
-			'metaType' => 'string',
-			'control' => 'text',
-			'controlParams' => null,
-			'group' => '',
-			'remind' => '',
-			'style' => '',
-			'show' => null,
-			'ifShow' => null,
-			'required' => true,
-			'unique' => true,
-			'value' => '',
-			'system' => null,
-			'template' => '',
-			'typeObject' => null,
-			'ifReuired' => '',
-			'updateReuired' => false,
-			'confirm' => '',
-			'minLength' => 0,
-			'maxLength' => 0,
-			'between' => array(),
-			'include' => array(),
-			'list' => array(),
-			'ignore' => false,
-			'regex' => ''
+			'metaType' => 'string'
 		),
 		array(
-			'id' => 'cate_name',
-			'name' => 'cate_name',
-			'alias' => '分类名称',
+			'name' => 'cate_code',
+			'alias' => '编码',
 			'create' => true,
 			'update' => true,
-			'hidden' => false,
-			'type' => 'key',
+			'type' => 'sstr',
 			'metaType' => 'string',
 			'control' => 'text',
-			'controlParams' => null,
-			'group' => '',
-			'remind' => '',
-			'required' => true,
+			'unique' => true
+		),
+		array(
+			'name' => 'cate_name',
+			'alias' => '名称',
+			'create' => true,
+			'update' => true,
+			'type' => 'sstr',
+			'metaType' => 'string',
+			'control' => 'text',
 			'unique' => true,
-			'value' => '',
-			'template' => '',
-			'typeObject' => null,
-			'ifReuired' => '',
-			'updateReuired' => false,
-			'confirm' => '',
-			'minLength' => 0,
-			'maxLength' => 0,
-			'between' => array(),
-			'include' => array(),
-			'ignore' => false,
-			'filter' => null,
-			'regex' => ''
+			'required' => true
+		),
+		array(
+			'name' => 'cate_alias',
+			'alias' => '别名',
+			'create' => true,
+			'update' => true,
+			'type' => 'sstr',
+			'metaType' => 'string',
+			'control' => 'text'
+		),
+		array(
+			'name' => 'icon_sign',
+			'alias' => '图标',
+			'create' => true,
+			'update' => true,
+			'type' => 'lstr',
+			'metaType' => 'string',
+			'control' => 'text'
+		),
+		array(
+			'name' => 'describe',
+			'alias' => '描述',
+			'create' => true,
+			'update' => true,
+			'type' => 'text',
+			'metaType' => 'text',
+			'control' => 'textarea'
+		),
+		array(
+			'name' => 'sort_no',
+			'alias' => '序号',
+			'create' => true,
+			'update' => true,
+			'type' => 'int',
+			'metaType' => 'int',
+			'control' => 'text',
+			'value' => 50
+		),
+		array(
+			'name' => 'created',
+			'alias' => '创建时间',
+			'hidden' => true,
+			'type' => 'time',
+			'metaType' => 'time'
+		),
+		array(
+			'name' => 'updated',
+			'alias' => '更新时间',
+			'type' => 'time',
+			'metaType' => 'time',
 		)
+	);
+	
+	protected $auto = array(
+		'cate_id' => 'uniqid',
+		'created' => 'time',
+		'updated' => 'time',
 	);
 	
 }

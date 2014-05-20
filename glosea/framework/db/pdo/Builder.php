@@ -11,59 +11,59 @@ class Builder {
 		'wheres',
 		//'group',
 		//'havings',
-		//'order',
+		'orders',
 		'limit',
 		//'unions',
 		//'lock',
 	);
 	
 	public function select(Query $query){
-		if (is_null($query -> fields)){
-			$query -> fields = array('*');
+		if (is_null($query->fields)){
+			$query->fields = array('*');
 		}
-		return trim($this -> concatenate($this -> components($query)));
+		return trim($this->concatenate($this->components($query)));
 	}
 	
 	public function insert(Query $query, array $values){
-		$table = $this -> wrapTable($query->from);
+		$table = $this->wrapTable($query->from);
 		if ( ! is_array(reset($values))){
 			$values = array($values);
 		}
 
-		$columns = $this -> columnize(array_keys(reset($values)));
-		$parameters = $this -> parameterize(reset($values));
+		$columns = $this->columnize(array_keys(reset($values)));
+		$parameters = $this->parameterize(reset($values));
 		$value = array_fill(0, count($values), "($parameters)");
 		$parameters = implode(', ', $value);
 		return "INSERT INTO $table ($columns) VALUES $parameters";
 	}
 	
 	public function update($query, $values){
-		$table = $this -> wrapTable($query -> from);
+		$table = $this->wrapTable($query->from);
 		$columns = array();
 
 		foreach ($values as $key => $value)
 		{
-			$columns[] = $this -> wrap($key).' = '.$this -> parameter($value);
+			$columns[] = $this->wrap($key).' = '.$this->parameter($value);
 		}
 
 		$columns = implode(', ', $columns);
 
 		if (isset($query->joins)){
-			$joins = ' ' . $this -> joins($query, $query -> joins);
+			$joins = ' ' . $this->joins($query, $query->joins);
 		}else{
 			$joins = '';
 		}
 		
-		$where = $this -> wheres($query, $query -> wheres);
+		$where = $this->wheres($query, $query->wheres);
 
 		$sql = trim("UPDATE {$table}{$joins} SET $columns $where");
 
-		if (isset($query -> orders)){
-			$sql .= ' '.$this -> orders($query, $query->orders);
+		if (isset($query->orders)){
+			$sql .= ' '.$this->orders($query, $query->orders);
 		}
 
 		if (isset($query->limit)){
-			$sql .= ' '.$this -> limit($query, $query->limit);
+			$sql .= ' '.$this->limit($query, $query->limit);
 		}
 
 		return rtrim($sql);
@@ -71,9 +71,9 @@ class Builder {
 	
 	protected function components($query){
 		$sql = array();
-		foreach ($this -> components as $component){
-			if (!is_null($query -> $component)){
-				$sql[$component] = $this -> $component($query, $query -> $component);
+		foreach ($this->components as $component){
+			if (!is_null($query->$component)){
+				$sql[$component] = $this->$component($query, $query->$component);
 			}
 		}
 		return $sql;
@@ -84,19 +84,19 @@ class Builder {
 	}
 	
 	protected function from($query, $table){
-		return 'FROM '.$this -> wrapTable($table);
+		return 'FROM '.$this->wrapTable($table);
 	}
 	
 	protected function wheres($query, $wheres){
 		
-		if (is_null($query -> wheres)){
+		if (is_null($query->wheres)){
 			return '';
 		}
 		
 		$sql = array();
 		foreach ($wheres as $where){
 			$method = "where";
-			$sql[] = $where['type'] .' '. $this -> $method($query, $where);
+			$sql[] = $where['type'] .' '. $this->$method($query, $where);
 		}
 
 		if (count($sql) > 0){
@@ -107,16 +107,21 @@ class Builder {
 	}
 	
 	protected function where($query, $where){
-		$value = $this -> parameter($where['value']);
-		return $this -> wrap($where['name']) . ' ' . $where['operator'] .  $value ;
+		$value = $this->parameter($where['value']);
+		return $this->wrap($where['name']) . ' ' . $where['operator'] .  $value ;
 	}
 	
 	protected function groups($query, $groups){
-		return 'GROUP BY '.$this -> wrapTable($table);
+		return 'GROUP BY '.$this->wrapTable($table);
 	}
 	
 	protected function orders($query, $orders){
-		return 'ORDER BY '.$this -> wrapTable($table);
+		$sql = $fix = '';
+		foreach ($orders as $order) {
+			$sql .= $fix . $order[0] . ' ' . $order[1];
+			$fix = ',';
+		}
+		return 'ORDER BY '.$sql;
 	}
 	
 	protected function limit($query, $limit){
@@ -134,7 +139,7 @@ class Builder {
 	}
 	
 	protected function wrap($name){
-		return $name;
+		return $name === '*' ? $name : '`' . $name . '`';
 	}
 	
 	protected function parameter($value){

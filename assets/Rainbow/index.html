@@ -28,22 +28,21 @@
         <script src="/assets/lib/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
         <script src="http://rainbow2.hulu.io/sea-modules/seajs/seajs/2.2.1/sea.js" id="seajsnode"></script>
         <script src="http://rainbow2.hulu.io/sea-modules/seajs/seajs-text/1.0.2/seajs-text.js"></script>
+        <script>
+		    (function(){
+		    	var rainbow;
+				seajs.config({
+					alias: {
+						'cookie':'arale/cookie/1.0.2/cookie',
+						'json':'gallery/json/1.0.3/json',
+						'ext-action':'js/extend/actions',
+						'ext-view':'js/extend/views'
+					},
+					debug: true
+				});
+				seajs.use("http://rainbow2.hulu.io/src/rainbow.js");
+			})();
+	    </script>
     </head>
-    <body>
-    </body>
-    <script>
-    (function(){
-    	var rainbow;
-		seajs.config({
-			alias: {
-				'cookie':'arale/cookie/1.0.2/cookie',
-				'json':'gallery/json/1.0.3/json',
-				'ext-action':'js/extend/actions',
-				'ext-view':'js/extend/views'
-			},
-			debug: true
-		});
-		seajs.use("http://rainbow2.hulu.io/src/rainbow.js");
-	})();
-    </script>
+    <body> </body>
 </html>

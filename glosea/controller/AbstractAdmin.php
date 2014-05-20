@@ -3,8 +3,8 @@ namespace glosea\controller;
 use glosea\framework\base\AbstractController;
 class AbstractAdmin extends AbstractController {
 	
-	function __construct($app, $request){
-		parent::__construct($app, $request);
+	function __construct($app, $request, $response){
+		parent::__construct($app, $request, $response);
 	}
 	
 	//角色认证

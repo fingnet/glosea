@@ -1,7 +1,7 @@
 <?php
 namespace glosea\framework\support;
 use Closure,ArrayAccess,IteratorAggregate,ArrayIterator,Countable;
-class Model implements  ArrayAccess,IteratorAggregate,Countable{
+class Object implements  ArrayAccess,IteratorAggregate,Countable{
 	protected $attrs;
 	
 	//实现数组迭代器接口
@@ -35,7 +35,7 @@ class Model implements  ArrayAccess,IteratorAggregate,Countable{
 		return count($this -> attrs);
 	}
 	
-	public function __set($key,$value){
+	public function __set($key, $value){
 		$this -> attrs[$key] = $value;
 		return $this;
 	}

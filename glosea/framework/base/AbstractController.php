@@ -1,89 +1,99 @@
 <?php
 namespace glosea\framework\base;
 use glosea\framework\base\Rest;
+use glosea\framework\view\View;
+use glosea\framework\exception\Exception;
 abstract class AbstractController{
 	
 	protected $request;
-	
+	protected $response;
 	protected $rest;
-	
-	//接收内容类型
 	protected $acceptType;
-	
-	//响应内容类型
 	protected $contentType;
-	
-	//默认视图对象
 	protected $view;
-	
-	//视图类型 page/block/data/message/file
-	protected $viewType;
-	
-	//设备
 	protected $device;
-	
-	//控制器参数
-	protected $param;
-	
-	//默认模型
+	protected $params = array();
+	protected $filters = array();
+	protected $orders = array();
+	protected $Model;
+	protected $dataParamName;
+	protected $input = false;
 	public $model;
-	
-	//所属应用
 	public $app;
 	
-	function __construct($app, $request){
-		$this -> request = $request;
-		$this -> app = $app;
-		if($this -> rest){
-			$this -> rest();
+	function __construct($app, $request, $response, $params = null){
+		$this->request = $request;
+		$this->response = $response;
+		$this->app = $app;
+		if($this->rest){
+			$this->rest();
 		}
 	}
 	
-	//是否Ajax请求
 	public function isAjax(){
-		return $this -> request -> ajax;
+		return $this->request->ajax;
 	}
 	
 	public function isMobile(){
 		return false;	
 	}
 	
-	//使用JSON
 	public function withJson(){
 		return false;
 	}
 	
 	public function method(){
-		return $this -> request -> method;
+		return $this->request->method;
 	}
 	
 	public function ip(){
-		return $this -> request -> ip;
+		return $this->request->ip;
 	}
 	
-	public function param($key){
+	public function param($key, $value = null){
+		if(is_null($value)){
+			return isset($this->params[$key]) ? $this->params[$key] : null;
+		}
 		
+		$this->params[$key] = $value;
+		return $this;
 	}
 	
-	//获取$_GET/$_POST/$_COOKIE/$_SESSION参数/_CONTENT_
-	public function getVal($key){
-		intval($var);
-		floatval($var);
-		doubleval($var);
-		strval($var);
+	public function getVal($key, $post = false){
+		
+		if($post){
+			return $this->postVal($key);
+		}
+		
+		if(isset($_POST['key'])){
+			return $_POST['key'];
+		}elseif(isset($_GET['key'])){
+			return $_GET['key'];
+		}elseif(!is_null($this->param($key))){
+			return $this->param($key);
+		}elseif(isset($_SESSION['key'])){
+			return $_SESSION['key'];
+		}else{
+			return null;
+		}
 	}
 	
-	//获取$_POST参数
+	public function getInt($key){
+		return intval($this->getVal($key));
+	}
+	
+	public function getFloat($key){
+		return floatval($this->getVal($key));
+	}
+	
+	public function getBool($key){
+		return is_null($this->getVal($key)) ? null : !!$this->getVal($key);
+	}
+	
 	public function postVal($key){
-		
+		return isset($_POST['key']) ? : null;
 	}
 	
-	//获取FORM表单对象
-	public function form(){
-		
-	}
-	
-	//获取$_FILE参数
 	public function file($key = '', $allow = array()){
 		
 	}
@@ -92,37 +102,51 @@ abstract class AbstractController{
 		
 	}
 	
-	//设置HTTP头
-	public function header($name, $value){
+	public function rest(){
+		if(!$this->model){
+			$this->model = $this->newModel();
+		}
+		$this->newRest();
 		return $this;
 	}
 	
-	public function rest(){
-		
-	}
-	
-	public function view(){
-		
+	public function view($type = null, $template = null, $data = array(), $engine = null){
+
+		if(is_null($type) && $this->isAjax()){
+			$type = 'application';
+		}
+		$this->view = $this->newView($type);
+		return $this;
 	}
 
 	public function render(){
-		
-	}
-	
-	//设置视图
-	public function setView($view){
-		$this -> view = $view;
+		$this->view->render();
 		return $this;
 	}
 	
-	//设置模型
-	public function setModel($model){
-		$this -> model = $model;
+	public function renderMessage(){
+		
+	}
+	
+	public function model($model){
+		$this->model = $model;
 		return $this;
 	}
 	
-	public function newView(){
-		
+	protected function newModel(){
+		if(!$this->Model){
+			throw new Exception('Model Not Defined');
+			return;
+		}
+		return new $this->Model;
+	}
+	
+	protected function newRest(){
+		return new Rest($this);
+	}
+	
+	protected function newView($type = 'Page'){
+		return new View($type, $this, $this->response);
 	}
 	
 	public function __call($method, $parameters){

@@ -13,45 +13,69 @@ class Table extends AbstractModel {
 	//真实表名
 	protected $trueTableName;
 	
-	protected $pk = 'id';
+	protected $idName = 'id';
+	
+	protected $orders;
 	
 	function __construct(array $attrs){
-		$this -> setAttrs($attrs);
+		$this->setAttrs($attrs);
 	}
 	
 	public function setTable($table){
-		$this -> tableName = $table;
+		$this->tableName = $table;
 		return $this;
 	}
 	
 	public function getTable(){
-		return $this -> trueTableName ? $this -> trueTableName : $this -> tablePrefix . $this -> tableName;
+		return $this->trueTableName ? $this->trueTableName : $this->tablePrefix . $this->tableName;
 	}
 	
 	public function setConnection($connection){
-		$this -> connection = $connection;
+		$this->connection = $connection;
 		return $this;
 	}
 	
 	public function getConnection($connection){
-		return $this -> connection;
+		return $this->connection;
+	}
+	
+	public function fetch(){
+		$this->query->find($this->id);
+		return $this;
+	}
+	
+	public function save($fetch = true){
+		if($this->id) {
+			$this->query->where($this->idName,$this->id)->update();
+		}else{
+			$this->id = $this->query->insert();
+		}
+		
+		if($fetch){
+			$this->fetch();
+		}
+		return $this;
+	}
+	
+	public function delete($ids){
+		$ids = is_array($ids) ? $ids : explode(',', $ids);
 	}
 	
 	public function newInstance($attrs = array(), $exists = false){
 		$model = new static($attrs);
-		$model -> exists = $exists;
+		$model->exists = $exists;
 		return $model;
 	}
 	
 	public function newFromQuery($attrs = array()){
-		$instance = $this -> newInstance((array) $attrs, true);
+		$instance = $this->newInstance((array) $attrs, true);
 		return $instance;
 	}
 	
 	public function newQuery(){
-		$this -> query = new Query($this -> connection, new Builder());
-		$this -> query -> setModel($this);
-		return $this -> query;
+		$this->query = new Query($this->connection, new Builder());
+		$this->query->setModel($this);
+		return $this->query;
 	}
 	
 	public function newCollection(array $models = array()){
@@ -59,8 +83,8 @@ class Table extends AbstractModel {
 	}
 	
 	public function __call($method, $parameters){
-		$query = $this -> newQuery();
-		return call_user_func_array(array($query, $method), $parameters);
+		$this->query = $this->query ? $this->query : $this->newQuery();
+		return call_user_func_array(array($this->query, $method), $parameters);
 	}
 	
 	public static function __callStatic($method, $parameters){

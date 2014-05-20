@@ -32,8 +32,8 @@ class Query{
 	protected $model;
 	
 	function __construct($connection, $builder){
-		$this -> connection = $connection;
-		$this -> builder = $builder;
+		$this->connection = $connection;
+		$this->builder = $builder;
 	}
 	
 	//查询表
@@ -52,23 +52,23 @@ class Query{
 	public function drop($tableName){}
 	
 	public function setModel($model){
-		$this -> model = $model;
-		$this -> from($model -> getTable());
+		$this->model = $model;
+		$this->from($model->getTable());
 		return $this;
 	}
 	
 	public function select($fields = array('*')){
-		$this -> fields = $this -> field($fields, func_get_args());
+		$this->fields = $this->field($fields, func_get_args());
 		return $this;
 	}
 	
 	public function from($table){
-		$this -> from = $table;
+		$this->from = $table;
 		return $this;
 	}
 	
 	public function table($table){
-		$this -> from($table);
+		$this->from($table);
 		return $this;
 	}
 	
@@ -85,39 +85,39 @@ class Query{
 	}
 	
 	public function where($name, $value = null, $operator = '=', $type = 'AND'){
-		$this -> wheres[] = compact('type', 'name', 'operator', 'value');
+		$this->wheres[] = compact('type', 'name', 'operator', 'value');
 		return $this;
 	}
 	
 	public function orWhere($name, $value = null, $operator = '='){
-		$this -> wheres[] = array('OR', $name, $type, $value);
+		$this->wheres[] = array('OR', $name, $type, $value);
 		return $this;
 	}
 	
 	public function order($name, $type = 'ASC'){
-		$this -> order[] = array($name, $type); 
+		$this->orders[] = array($name, $type); 
 		return $this;
 	}
 	
 	public function group(){
-		array_merge($this -> group, func_get_args());
+		array_merge($this->group, func_get_args());
 		return $this;
 	}
 	
 	public function limit($limit){
-		$this -> limit = $limit;
+		$this->limit = $limit;
 		return $this;
 	}
 	
 	public function skip($num = 0){
-		$this -> skip = $num;
-		$this -> limit = $num . ',' . $this -> top;
+		$this->skip = $num;
+		$this->limit = $num . ',' . $this->top;
 		return $this;
 	}
 	
 	public function top($num = 10){
-		$this -> top = $num;
-		$this -> limit = $this -> skip . ',' . $num;
+		$this->top = $num;
+		$this->limit = $this->skip . ',' . $num;
 		return $this;
 	}
 	
@@ -125,16 +125,15 @@ class Query{
 		
 	}
 	
-	public function insert(array $values){
-		$sql = $this -> builder -> insert($this, $values);
-		echo $sql . '<br>';
-		return $this -> connection -> insert($sql);
+	public function insert(array &$values = null){
+		$values = is_null($values) ? $this->model->toArray() : $values;
+		$sql = $this->builder->insert($this, $values);
+		return $this->connection->insert($sql);
 	}
 	
-	public function update(array $values){
-		$sql = $this -> builder -> update($this, $values);
-		echo $sql . '<br>';
-		return $this -> connection -> update($sql);
+	public function update(array &$values){
+		$sql = $this->builder->update($this, $values);
+		return $this->connection->update($sql);
 	}
 	
 	public function replace($data){
@@ -151,24 +150,26 @@ class Query{
 	}
 	
 	public function get($fields = array('*')){
-		$this -> select($this -> field($fields, func_get_args()));
-		$sql = $this -> builder -> select($this);
-		console($sql);
-		return $this -> connection -> select($sql);
+		if(!$this->from){
+			throw new \Exception('Table is not defined');
+		}
+		$this->select($this->field($fields, func_get_args()));
+		$sql = $this->builder->select($this);
+		return $this->connection->select($sql);
 	}
 	
 	public function all($fields = array('*')){
-		return $this -> get($this -> field($fields, func_get_args()));
+		return $this->get($this->field($fields, func_get_args()));
 	}
 	
 	public function first($fields = array('*')){
-		return $this -> top(1) 
-						-> get($this -> field($fields, func_get_args())) 
+		return $this->top(1) 
+						-> get($this->field($fields, func_get_args())) 
 						-> first();
 	}
 	
 	public function last($fields = array('*')){
-		return $this -> get($this -> field($fields, func_get_args())) -> last();
+		return $this->get($this->field($fields, func_get_args()))->last();
 	}
 	
 	public function pluck($field){

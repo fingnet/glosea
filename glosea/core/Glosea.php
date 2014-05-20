@@ -46,7 +46,7 @@ class Glosea extends Flight {
 		$path = GS_ROOT . str_replace('\\', '/', $classPath) . $className . '.php';
 		if(is_file($path)){
 			include $path;
-			return new $class(null,static::request());
+			return new $class(null, static::request(), static::response());
 		}
 		static::notFound();
 	}

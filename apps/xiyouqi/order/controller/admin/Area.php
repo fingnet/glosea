@@ -1,12 +1,9 @@
 <?php
 namespace apps\xiyouqi\order\controller\admin;
-use glosea\controller\AbstractAdmin;
-use apps\xiyouqi\order\model\Area as Model;
-class Area extends AbstractAdmin {
+use glosea\controller\Rainbow;
+class Area extends Rainbow {
 	
-	function __construct($app, $request){
-		parent::__construct($app, $request);
-		$this -> model = new Model;
-	}
+	protected $Model = 'apps\xiyouqi\order\model\Area';
+	protected $pagination = false;
 	
 }

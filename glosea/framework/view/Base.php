@@ -1,13 +1,13 @@
 <?php
 namespace glosea\framework\view;
-use glosea\framework\support\Model;
-class Base extends Model {
+use glosea\framework\support\Object;
+class Base extends Object {
 	
 	protected $controller;
 	protected $response;
 	
-	function __construct($controller, $response){
-		
+	function __construct($controller = null, $response = null){
+		$this->response = $response;
 	}
 	
 	public function render($file, $data = null){
@@ -16,8 +16,8 @@ class Base extends Model {
 	
 	public function fetch($file, $data){
 		ob_start();
-        $this->render($file, $data);
-        $output = ob_get_clean();
-        return $output;
+    $this->render($file, $data);
+    $output = ob_get_clean();
+    return $output;
 	}
 }

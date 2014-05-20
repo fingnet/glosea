@@ -13,19 +13,19 @@ class Res extends AbstractAdmin {
 				'code' => 'food',
 				'icon' => 'glyphicon-leaf',
 				'type' => 'catalog',
-				'desc' => '',
+				'legend' => '',
 				'url'  => '',
-				'childList' => array(
+				'childs' => array(
 					array(
 						'id'   => '11',
 						'name' => '餐品',
 						'code' => 'food',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/food',
-						'childList' => array(),
+						'action' => '/order/admin.food',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -34,10 +34,10 @@ class Res extends AbstractAdmin {
 						'code' => 'category',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/food-cate',
-						'childList' => array(),
+						'action' => '/order/admin.foodcate',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -46,10 +46,10 @@ class Res extends AbstractAdmin {
 						'code' => 'stock',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/food-stock',
-						'childList' => array(),
+						'action' => '/order/admin.foodstock',
+						'childs' => array(),
 						'sort' => 0
 					)
 				),
@@ -61,19 +61,19 @@ class Res extends AbstractAdmin {
 				'code' => 'order',
 				'icon' => 'glyphicon-list-alt',
 				'type' => 'catalog',
-				'desc' => '',
+				'legend' => '',
 				'url'  => '',
-				'childList' => array(
+				'childs' => array(
 					array(
 						'id'   => '21',
 						'name' => '订单',
 						'code' => 'order',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/order',
-						'childList' => array(),
+						'action' => '/order/admin.order',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -82,10 +82,10 @@ class Res extends AbstractAdmin {
 						'code' => 'batch',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
 						'action' => '/order/admin.batch',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					)
 				),
@@ -97,18 +97,18 @@ class Res extends AbstractAdmin {
 				'code' => 'content',
 				'icon' => 'glyphicon-file',
 				'type' => 'catalog',
-				'desc' => '',
+				'legend' => '',
 				'url'  => '',
-				'childList' => array(
+				'childs' => array(
 					array(
 						'id'   => '91',
 						'name' => '文章',
 						'code' => 'article',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -117,9 +117,9 @@ class Res extends AbstractAdmin {
 						'code' => 'category',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -128,9 +128,9 @@ class Res extends AbstractAdmin {
 						'code' => 'page',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					),array(
 						'id'   => '94',
@@ -138,9 +138,9 @@ class Res extends AbstractAdmin {
 						'code' => 'file',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					)
 				),
@@ -152,19 +152,19 @@ class Res extends AbstractAdmin {
 				'code' => 'user',
 				'icon' => 'glyphicon-user',
 				'type' => 'catalog',
-				'desc' => '',
+				'legend' => '',
 				'url'  => '',
-				'childList' => array(
+				'childs' => array(
 					array(
 						'id'   => '101',
 						'name' => '会员',
 						'code' => 'member',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/member',
-						'childList' => array(),
+						'action' => '/order/admin.member',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -173,10 +173,10 @@ class Res extends AbstractAdmin {
 						'code' => 'device',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/device',
-						'childList' => array(),
+						'action' => '/order/admin.device',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -185,10 +185,10 @@ class Res extends AbstractAdmin {
 						'code' => 'inbox-address',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/inbox',
-						'childList' => array(),
+						'action' => '/order/admin.inbox',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -197,9 +197,9 @@ class Res extends AbstractAdmin {
 						'code' => 'user',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					),array(
 						'id'   => '104',
@@ -207,9 +207,9 @@ class Res extends AbstractAdmin {
 						'code' => 'role',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					)
 				),
@@ -221,19 +221,19 @@ class Res extends AbstractAdmin {
 				'code' => 'system',
 				'icon' => 'glyphicon-cog',
 				'type' => 'catalog',
-				'desc' => '',
+				'legend' => '',
 				'url'  => '',
-				'childList' => array(
+				'childs' => array(
 					array(
 						'id'   => '111',
 						'name' => '区域',
 						'code' => 'area',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'action' => '/order/admin/area',
-						'childList' => array(),
+						'action' => '/order/admin.area',
+						'childs' => array(),
 						'sort' => 0
 					),
 					array(
@@ -242,9 +242,9 @@ class Res extends AbstractAdmin {
 						'code' => 'var',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
-						'desc' => '',
+						'legend' => '',
 						'url'  => '',
-						'childList' => array(),
+						'childs' => array(),
 						'sort' => 0
 					)
 				),
@@ -256,9 +256,9 @@ class Res extends AbstractAdmin {
 				'code' => 'signout',
 				'icon' => 'glyphicon-off',
 				'type' => 'catalog',
-				'desc' => '',
+				'legend' => '',
 				'url'  => '',
-				'childList' => array()
+				'childs' => array()
 			)
 	   );
 	   echo json_encode($res);

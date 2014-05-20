@@ -12,27 +12,27 @@ class Rest {
 	);
 	
 	function __construct($controller){
-		$method = static::$method[strtoupper($controller -> method())];
-		$this -> controller = $controller;
+		$action = static::$method[strtoupper($controller->method())];
+		$this->controller = $controller;
+		$this->$action();
 	}
 	
-	//读取数据
 	public function get($id = null){
-		return is_null($id) ? $this->controller->model->getArray() : $this->controller->model->find($id);
+		$this->controller->render();
 	}
 	
-	//新增数据
-	public function post($id){
-		return $this->controller->model->update($id);
+	public function post(){
+		$message = $this->controller->model->create();
+		$this->controller->renderMessage();
 	}
 	
-	//修改数据
-	public function put(){
-		return $this->controller->model-> create();
+	public function put($id = null){
+		$message = $this->controller->model->update();
+		$this->controller->renderMessage();
 	}
 	
-	//删除数据
-	public function delete($id){
-		return $this->controller->model->remove($id);
+	public function delete($ids){
+		$message = $this->controller->model->delete($id);
+		$this->controller->renderMessage();
 	}
 }

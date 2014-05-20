@@ -1,6 +1,6 @@
 <?php
 namespace glosea\framework\base;
-use glosea\framework\support\Model;
+use glosea\framework\support\Object;
 /**
  * 模型抽象类定义
  * 
@@ -9,126 +9,166 @@ use glosea\framework\support\Model;
  * @license http://www.glosea.org
  * @version $Id$
  */
-abstract class AbstractModel extends Model{
+abstract class AbstractModel extends Object{
 	
-	//数据是否存在
 	protected $exists = false;
 	
-	//移除的数据
 	protected $remove = array();
 	
-	//关联模型
 	protected $join = array();
 	
-	//子模型
 	protected $child = array();
 	
-	//父模型
 	protected $parent = array();
 	
-	//属性映射
 	protected $map;
 	
 	protected $hidden;
 	
 	protected $visible;
 	
-	//主键名称
-	protected $pk = 'id';
+	protected $idName = 'id';
 	
-	//外键名称
-	protected $fk;
+	protected $id;
 	
-	//父级ID
-	protected $pid;
+	protected $parentName;
 	
-	protected $connection;
+	protected $nodeName;
 	
 	protected $roles;
 	
-	protected $endRole = array(
-		'create','update','type','metaType','required','updateReuired','unique','ifRequire',
-		'min','max','confirm','between','include','ignore','filter'
+	protected $endRoles = array(
+		'create','update','type','metaType','required','unique','value','system','typeObject'
+		,'ifRequired','updateReuired','confirm','minLength','maxLength','between',
+		'include','list','ignore','filter'
 	);
 	
-	protected $frontRole = array();
-	
-	//逻辑删除
-	protected $logicDelete;
-	
-	public static function on($connection){
-		$instance = new static;
-		$instance -> connection = $connection;
-		return $instance;
-	}
+	protected $frontRoles = array(
+		'id','name','alias','create','update','hidden','type','metaType',
+		'display','control','controlParams','group','remind','style','ifShow',
+		'required','unique','value','system','template','typeObject',
+		'ifReuired','confirm','minLength','maxLength','between','list','regex'
+	);
 	
 	public function setAttrs(array &$attrs = array()){
-		$this -> attrs = $attrs;
+		$this->attrs = $attrs;
 		return $this;
 	}
 	
 	public function add(array $attrs){
-		$this -> attrs = array_merge((array) $this -> attrs, $attrs);
+		$this->attrs = array_merge((array) $this->attrs, $attrs);
 		return $this;
 	}
 	
-	public function create(array $attrs){
-		$this -> add($attrs);
-		$this -> save();
-	}
-	
-	public function addRole($key, $role){
-		$this -> roles[$key] = $role;
-		return $this; 
-	}
-	
-	public function removeRole($key){
-		unset($this -> roles[$key]);
+	public function role($key, $role = null){
+		if(is_null($role)){
+			return isset($this->roles[$key]) ? $this->roles[$key] : null;
+		}
+		
+		if(false === $role){
+			unset($this->roles[$key]);
+			return $this;
+		}
+		
+		$this->roles[$key] = $role;
 		return $this;
 	}
 	
-	public function setRoles(array $roles){
-		$this -> roles = array_merge((array) $this -> roles, $roles);
+	public function roles($roles = null){
+		if(is_null($roles)){
+			return $this->roles;
+		}
+		
+		if(false === $roles){
+			$this->roles = null;
+			return $this;
+		}
+		
+		$this->roles = array_merge((array) $this->roles, $key);
 		return $this;
 	}
 	
-	public function clearRoles(){
-		$this -> roles = null;
-		return $this;
+	public function frontRoles(){
+		return $this->roles;
 	}
 	
-	public function escape($key){
-		return isset($this -> attrs[$key]) ? $this -> attrs[$key] : null;
+	public function &toArray(){
+		return $this->attrs;
 	}
 	
-	public function toArray(){
-		return clone $this -> attrs;
+	private function toTree(&$nodes, &$list){
+		foreach ($nodes as &$node) {
+			foreach($list as $key => $value){
+				if($node[$this->idName] === $value[$this->nodeName]){
+					$node['_childs'][] = $value;
+					unset($list[$key]);
+				}
+			}
+			
+			if(isset($node['_childs'])){
+				$this->toTree($node['_childs'], $list);
+			}
+		}
+		return $nodes;
+	}
+	
+	public function getTree($list){
+		if(!$this->nodeName){
+			throw new \Exception('Node name is not defined');
+		}
+		$nodes = array();
+		foreach($list as $key => $value){
+			if(!$value[$this->nodeName]){
+				$nodes[] = $value;
+				unset($list[$key]);
+			}
+		}
+		$this->toTree($nodes, $list);
+		return $nodes;
 	}
 	
 	public function toJson(){
-		return json_encode($this -> attrs);
+		return json_encode($this->attrs);
 	}
 	
-	//模型校验
 	public function validate(){
-		if(is_null($this -> roles)){
+		if(is_null($this->roles)){
 			
 		}
 		return true;
 	}
 	
-	//删除数据
-	public function destroy($id){}
-	
-	
-	//存储 同时包含批量的新增|更新|删除
-	public function save(){
-		if(! $this -> validate() ){
-			
+	public function create(array $attrs = null){
+		if(!is_null($attrs)){
+			$this->add($attrs);
 		}
+		$this->id = $this->save();
+		return $this;
 	}
 	
-	public function pk(){
-		return $this -> pk;
+	public function update($id, array $attrs = null){
+		if(!is_null($attrs)){
+			$this->add($attrs);
+		}
+		$this->id = $id;
+		$this->save();
+		$this->get();
+		return $this;
 	}
+	
+	abstract public function delete($ids);
+	abstract public function save();
+	
+	public function idName($name = null){
+		if(!is_null($name)){
+			$this->idName = $name;
+			return $this;
+		}
+		return $this->idName;
+	}
+	
+	public function id(){
+		return $this->id;
+	}
+	
 }
