@@ -9,7 +9,7 @@ class Res extends AbstractAdmin {
 		$res = array(
 			array(
 				'id'   => '1',
-				'name' => '餐品',
+				'name' => '商品',
 				'code' => 'food',
 				'icon' => 'glyphicon-leaf',
 				'type' => 'catalog',
@@ -57,7 +57,7 @@ class Res extends AbstractAdmin {
 			),
 			array(
 				'id'   => '2',
-				'name' => '订餐',
+				'name' => '订单',
 				'code' => 'order',
 				'icon' => 'glyphicon-list-alt',
 				'type' => 'catalog',
