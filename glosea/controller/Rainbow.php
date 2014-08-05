@@ -70,8 +70,8 @@ class Rainbow extends AbstractAdmin {
 		$this->view->setType('json');
 		parent::__construct($app, $request, $response);
 	}
-
-	public function render(){
+	
+	private function _scheme(){
 		$scheme = array(
 			'attributes' => $this->model->frontRoles(),
 			'filters' => $this->filters,
@@ -91,9 +91,11 @@ class Rainbow extends AbstractAdmin {
 			$scheme['pagination'] = $this->pagination;
 			$scheme['paginationName'] = $this->pageParamName;
 		}
-		
+		return $scheme;
+	}
+
+	public function render(){
 		$this->content['body'] = $this->model->getList();
-		
 		$this->view
 			->__set('id', 1)
 			->__set('name', 'Rainbow View')
@@ -101,7 +103,7 @@ class Rainbow extends AbstractAdmin {
 			->__set('icon', '')
 			->__set('actions', array_values($this->actions))
 			->__set('tools', array_values($this->tools))
-			->__set('scheme', $scheme)
+			->__set('scheme', $this->_scheme())
 			->__set('mode', 'table')
 			->__set('content', $this->content)
 			->__set('handle', $this->handle)
@@ -144,7 +146,9 @@ class Rainbow extends AbstractAdmin {
 	}
 	
 	protected function page($size = 10, $paramName = 'page'){
-		
+		$this->pagesize = $size;
+		$this->pageParamName = $paramName;
+		return $this;
 	}
 	
 	protected function extend(){

@@ -59,12 +59,11 @@ abstract class AbstractController{
 		return $this;
 	}
 	
-	public function getVal($key, $post = false){
-		
-		if($post){
-			return $this->postVal($key);
-		}
-		
+	public function post($key){
+		return isset($_POST['key']) ? : null;
+	}
+	
+	public function get($key){
 		if(isset($_POST['key'])){
 			return $_POST['key'];
 		}elseif(isset($_GET['key'])){
@@ -79,19 +78,15 @@ abstract class AbstractController{
 	}
 	
 	public function getInt($key){
-		return intval($this->getVal($key));
+		return intval($this->get($key));
 	}
 	
 	public function getFloat($key){
-		return floatval($this->getVal($key));
+		return floatval($this->get($key));
 	}
 	
 	public function getBool($key){
-		return is_null($this->getVal($key)) ? null : !!$this->getVal($key);
-	}
-	
-	public function postVal($key){
-		return isset($_POST['key']) ? : null;
+		return is_null($this->get($key)) ? null : !!$this->get($key);
 	}
 	
 	public function file($key = '', $allow = array()){
@@ -110,11 +105,8 @@ abstract class AbstractController{
 		return $this;
 	}
 	
-	public function view($type = null, $template = null, $data = array(), $engine = null){
-
-		if(is_null($type) && $this->isAjax()){
-			$type = 'application';
-		}
+	public function view($data = array(), $template = null, $type = null, $engine = null){
+		$type = is_null($type) && $this->isAjax() ? 'application' : $type;
 		$this->view = $this->newView($type);
 		return $this;
 	}

@@ -23,16 +23,16 @@ class Rest {
 	
 	public function post(){
 		$message = $this->controller->model->create();
-		$this->controller->renderMessage();
+		$this->controller->renderMessage($message);
 	}
 	
 	public function put($id = null){
 		$message = $this->controller->model->update();
-		$this->controller->renderMessage();
+		$this->controller->renderMessage($message);
 	}
 	
 	public function delete($ids){
-		$message = $this->controller->model->delete($id);
-		$this->controller->renderMessage();
+		$message = $this->controller->model->delete($ids);
+		$this->controller->renderMessage($message);
 	}
 }

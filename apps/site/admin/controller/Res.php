@@ -18,7 +18,7 @@ class Res extends AbstractAdmin {
 				'childs' => array(
 					array(
 						'id'   => '11',
-						'name' => '餐品',
+						'name' => '商品',
 						'code' => 'food',
 						'icon' => 'glyphicon-file',
 						'type' => 'catalog',
