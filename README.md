@@ -16,3 +16,6 @@ Glosea是基于PHP5.3+Mysql的Web应用平台。
 - PDO作为关系型数据库适配器；
 - 使用const定义常量；
 - 使用PHPDoc；
+
+## 参考
+- http://w2ui.com/web/home
