@@ -55,3 +55,6 @@ Glosea是基于PHP5.3+Mysql的Web应用平台。
 - 管理界面支持写作模式和管理模式两种；
 - 站点管理：可以自由的创建多个站点，绑定不同的域名，设置不同的主题、模块、内容模型、管理权限、系统模板……
 - 以内容模型和应用模块作为管理主体；
+- Mobile Web
+  - [app.js](http://code.kik.com/app/2/index.html)；
+  - [ratchet](http://goratchet.com/)
