@@ -37,7 +37,6 @@
 - attributes
 - connection
 - tableName
-- where
 
 ### Method
 
@@ -49,6 +48,13 @@
 - findOne()
 - query()
 - native()
+- where()
+- limit()
+- top()
+- skip()
+- sort()
+- page()
+- execute()
 
 ## Service
 
@@ -60,8 +66,9 @@
 - layout
 - template
 - engine
+- charset
 
 ### Method
 
 - render()
-- asset()
+- assigned()
