@@ -29,7 +29,6 @@
 - create()
 - update()
 - delete()
-- on()
 
 ## Model
 
@@ -42,6 +41,9 @@
 - autoPk
 - autoCreatedAt
 - autoUpdatedAt
+- guarded
+- hidden
+- visible
 
 ### Method
 
@@ -63,6 +65,9 @@
 - save()
 - toArray()
 - toJSON()
+- on()
+- id()
+- idName()
 
 ### attribute
 
