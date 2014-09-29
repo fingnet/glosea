@@ -81,6 +81,13 @@
     - alphanumericdashed
     - decimal
     - email
+    - **qq**
+    - **zip**
+    - **word**
+    - **chinesePhone**
+    - **chinese**
+    - **chineseDaily**
+    - **html**
     - number
     - numeric
     - hexadecimal
