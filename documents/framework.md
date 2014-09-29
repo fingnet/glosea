@@ -37,6 +37,7 @@
 - attributes
 - connection
 - tableName
+- types
 
 ### Method
 
