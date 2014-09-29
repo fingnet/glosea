@@ -83,6 +83,11 @@
     - email
     - number
     - numeric
+    - hexadecimal
+    - hexColor
+    - ip
+    - ipv4
+    - ipv6
     - url
     - urlish
     - uuid
@@ -91,6 +96,7 @@
 - primaryKey
 - enum
 - size
+- len
 - max
 - maxLength
 - min
@@ -105,11 +111,15 @@
 - before
 - contains
 - notContains
+- is
+- regex
 - columnName
 - index
 - protected
 - autoIncrement
 - defaultsTo
+- toLowercase
+- toUppercase
 
 ## Service
 
