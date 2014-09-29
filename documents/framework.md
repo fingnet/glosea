@@ -47,7 +47,7 @@
 - find()
 - findOne()
 - query()
-- native()
+- raw()
 - where()
 - limit()
 - top()
@@ -55,6 +55,57 @@
 - sort()
 - page()
 - execute()
+- save()
+- toArray()
+- toJSON()
+
+### attribute
+
+- type
+  - string
+  - text
+  - integer
+  - float
+  - date
+  - datetime
+  - boolean
+  - timestamp
+  - binary
+  - array
+  - json
+  - validations
+    - alpha
+    - alphadashed
+    - alphanumeric
+    - alphanumericdashed
+    - decimal
+    - email
+    - number
+    - numeric
+    - url
+    - urlish
+    - uuid
+- required
+- unique
+- primaryKey
+- enum
+- size
+- max
+- maxLength
+- min
+- minLength
+- empty
+- notEmpty
+- in
+- notIn
+- after
+- before
+- contains
+- columnName
+- index
+- protected
+- autoIncrement
+- defaultsTo
 
 ## Service
 
