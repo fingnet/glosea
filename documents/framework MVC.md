@@ -38,6 +38,9 @@
 - connection
 - tableName
 - types
+- autoPk
+- autoCreatedAt
+- autoUpdatedAt
 
 ### Method
 
@@ -127,6 +130,7 @@
 - defaultsTo
 - toLowercase
 - toUppercase
+- filter
 
 ## Service
 
