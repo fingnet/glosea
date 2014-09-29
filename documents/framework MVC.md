@@ -149,4 +149,4 @@
 ### Method
 
 - render()
-- assigned()
+- assign()
