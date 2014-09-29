@@ -111,6 +111,7 @@
 - maxLength
 - min
 - minLength
+- between
 - empty
 - notEmpty
 - null
