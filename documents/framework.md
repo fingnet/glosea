@@ -96,11 +96,14 @@
 - minLength
 - empty
 - notEmpty
+- null
+- notNull
 - in
 - notIn
 - after
 - before
 - contains
+- notContains
 - columnName
 - index
 - protected
