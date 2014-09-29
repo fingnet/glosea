@@ -130,7 +130,8 @@
 - defaultsTo
 - toLowercase
 - toUppercase
-- filter
+- inFilter
+- outFilter
 
 ## Service
 
