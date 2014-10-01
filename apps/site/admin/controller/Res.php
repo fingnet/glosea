@@ -261,11 +261,8 @@ class Res extends AbstractAdmin {
 				'childs' => array()
 			)
 	   );
+		 
 	   echo json_encode($res);
-	}
-	
-	public function get(){
-		
 	}
 }
 	
