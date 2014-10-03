@@ -11,7 +11,15 @@
 - params
 - view
 
-### Method
+### Rest
+
+- find(array $object | string $id)
+- findOne(array $object | string $id)
+- create(array | string $fields)
+- update(array | string $fields)
+- delete()
+
+### Request
 
 - isAjax()
 - isMobile()
@@ -24,11 +32,21 @@
 - getInt($key)
 - getFloat($key)
 - getBool($key)
-- find(array $object | string $id)
-- findOne(array $object | string $id)
-- create(array | string $fields)
-- update(array | string $fields)
-- delete()
+
+### Response
+
+- render()
+- header()
+- sendHeader()
+- write()
+- send()
+- clear()
+- cahce()
+- fetch()
+- end()
+- json()
+- jsonp()
+- status()
 
 ## Model
 
