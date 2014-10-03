@@ -47,6 +47,7 @@
 - json()
 - jsonp()
 - status()
+- redirect()
 
 ## Model
 
