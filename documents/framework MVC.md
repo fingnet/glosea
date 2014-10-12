@@ -21,7 +21,8 @@
 
 ### Request
 
-- isAjax()
+- is()
+- isXhr()
 - isMobile()
 - withJSON()
 - getMethod()
@@ -46,8 +47,11 @@
 - end()
 - json()
 - jsonp()
+- attachment()
+- download()
 - status()
 - redirect()
+- location()
 
 ## Model
 
