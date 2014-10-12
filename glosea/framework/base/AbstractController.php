@@ -127,7 +127,7 @@ abstract class AbstractController{
 	
 	protected function newModel(){
 		if(!$this->Model){
-			throw new Exception('Model Not Defined');
+			throw new \Exception('Model Not Defined');
 			return;
 		}
 		return new $this->Model;

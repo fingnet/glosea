@@ -7,7 +7,7 @@ use glosea\core\Glosea;
 Glosea::init();
 use glosea\core\Table;
 Glosea::route('/test', function($router){
-    parse_str(file_get_contents('php://input'), $data);
-	print_r(Glosea::request()->method);
+	parse_str(file_get_contents('php://input'), $data);
+	print_r(Glosea::request()->data);
 });
 Glosea::start();
