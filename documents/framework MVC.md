@@ -77,6 +77,7 @@
 - batch()
 - find()
 - findOne()
+- findOrCreate()
 - query()
 - raw()
 - where()
