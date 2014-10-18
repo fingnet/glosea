@@ -29,7 +29,7 @@ class Glosea extends Flight {
 	}
 	
 	public static function initContainer(){
-		static::set('db',Connector :: connect(config('database')));
+		static::set('db',Connector :: connect(config('connection')));
 		static::set('cfg',config('apps'));
 	}
 	
