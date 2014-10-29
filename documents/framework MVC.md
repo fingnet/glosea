@@ -25,14 +25,12 @@
 - isXhr()
 - isMobile()
 - withJSON()
+- wantJSON()
 - getMethod()
 - getIP()
 - param()
 - post($key)
 - get($key)
-- getInt($key)
-- getFloat($key)
-- getBool($key)
 
 ### Response
 
