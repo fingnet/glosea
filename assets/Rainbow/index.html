@@ -23,26 +23,24 @@
 		<script src="/assets/lib/less/less-1.7.0.min.js"></script>
 		<script src="http://rainbow2.hulu.io/js/vendor/modernizr-2.8.0.min.js"></script>
 		<script src="http://rainbow2.hulu.io/js/vendor/jquery-1.11.0.min.js"></script>
-		<script src="http://rainbow2.hulu.io/js/vendor/underscore-min.js"></script>
-		<script src="http://rainbow2.hulu.io/js/vendor/backbone-min.js"></script>
-		<script src="/assets/lib/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
-		<script src="http://rainbow2.hulu.io/sea-modules/seajs/seajs/2.2.1/sea.js" id="seajsnode"></script>
-		<script src="http://rainbow2.hulu.io/sea-modules/seajs/seajs-text/1.0.2/seajs-text.js"></script>
-		<script>
-			(function(){
-				var rainbow;
-				seajs.config({
-					alias: {
-						'cookie':'arale/cookie/1.0.2/cookie',
-						'json':'gallery/json/1.0.3/json',
-						'ext-action':'js/extend/actions',
-						'ext-view':'js/extend/views'
-					},
-					debug: true
-				});
-				seajs.use("http://rainbow2.hulu.io/src/rainbow.js");
-			})();
-		</script>
+		<script src="http://rainbow2.hulu.io/js/vendor/require.js"></script>
+    <script>
+    (function(){
+      var rainbow;            
+      require.config({
+        urlArgs: 'bust=' + (new Date()).getTime(),
+        paths: {
+          underscore: 'lib/underscore-min',
+          backbone: 'lib/backbone-min',
+          jquery: 'lib/jquery.min'
+        },
+        config:{
+          
+        }
+      });
+      require(['./src/rainbow'],function(app){});
+    })();
+    </script>
 	</head>
 	<body> </body>
 </html>

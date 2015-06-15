@@ -1,0 +1,14 @@
+{
+    "name": "keelkit",
+    "keywords": ["framework", "mvc", "sql", "orm"],
+    "authors": [
+        {
+            "name": "Zhirong Ma",
+            "email": "fingnet@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/database": "*"
+    }
+}

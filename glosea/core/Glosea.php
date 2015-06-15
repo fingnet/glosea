@@ -5,6 +5,7 @@ use glosea\flight\Flight;
 class Glosea extends Flight {
 	
 	public static function init(){
+		static::response() -> header('Access-Control-Allow-Origin','http://rainbow2.hulu.io');
 		static::initSession();
 		static::initContainer();
 		static::initApp();
